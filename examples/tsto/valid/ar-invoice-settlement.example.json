@@ -1,0 +1,88 @@
+{
+  "spec": "TSTO/00",
+  "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+  "type": "TargetStateTransition",
+  "issued_at": "2026-08-02T16:00:00Z",
+  "profile": {
+    "id": "urn:tsto:profile:ar.invoice-settlement:v1",
+    "digest": "sha-256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  },
+  "subject": {
+    "id": "urn:merchant:demo:invoice:INV-2026-0088",
+    "type": "Invoice",
+    "version": "erp-etag-184"
+  },
+  "baseline": {
+    "observed_at": "2026-08-02T15:55:00Z",
+    "claims": [
+      {
+        "op": "eq",
+        "path": "/status",
+        "value": "overdue"
+      },
+      {
+        "op": "eq",
+        "path": "/balance_due_minor",
+        "value": 1200000
+      }
+    ],
+    "evidence": [
+      {
+        "id": "urn:uuid:01987654-3210-7abc-8def-111111111111",
+        "kind": "erp_snapshot",
+        "digest": "sha-256:BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "observed_at": "2026-08-02T15:55:00Z",
+        "media_type": "application/json"
+      }
+    ]
+  },
+  "target": {
+    "claims": [
+      {
+        "op": "eq",
+        "path": "/status",
+        "value": "settled"
+      },
+      {
+        "op": "eq",
+        "path": "/balance_due_minor",
+        "value": 0
+      }
+    ]
+  },
+  "validity": {
+    "not_before": "2026-08-02T16:00:00Z",
+    "achieve_by": "2026-08-15T23:59:59Z",
+    "verify_by": "2026-08-17T23:59:59Z",
+    "sustain_for": "P1D"
+  },
+  "constraints": [
+    {
+      "id": "no-open-dispute",
+      "scope": "interval",
+      "predicate": {
+        "op": "eq",
+        "path": "/dispute/open",
+        "value": false
+      }
+    }
+  ],
+  "verification": {
+    "policy": {
+      "id": "urn:tsto:verification:ar.invoice-settlement:v1",
+      "digest": "sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+    },
+    "parameters": {
+      "allowed_evidence_kinds": [
+        "bank_settlement_receipt",
+        "erp_ledger_entry"
+      ],
+      "max_clock_skew_seconds": 300
+    }
+  },
+  "integrity": {
+    "alg": "sha-256",
+    "canonicalization": "RFC8785",
+    "value": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+  }
+}

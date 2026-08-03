@@ -1,0 +1,49 @@
+{
+  "spec": "TSTO/00",
+  "id": "urn:uuid:01987654-3210-7abc-8def-999999999999",
+  "type": "TargetStateTransition",
+  "issued_at": "2026-08-02T16:00:00Z",
+  "profile": {
+    "id": "urn:tsto:profile:ar.invoice-settlement:v1",
+    "digest": "sha-256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  },
+  "subject": {
+    "id": "urn:merchant:demo:invoice:INV-2026-0099",
+    "type": "Invoice"
+  },
+  "baseline": {
+    "observed_at": "2026-08-02T15:55:00Z",
+    "claims": [
+      {
+        "op": "eq",
+        "path": "/status",
+        "value": "overdue"
+      }
+    ]
+  },
+  "target": {
+    "claims": [
+      {
+        "op": "eq",
+        "path": "/status",
+        "value": "settled"
+      }
+    ]
+  },
+  "validity": {
+    "achieve_by": "2026-08-15T23:59:59Z",
+    "verify_by": "2026-08-17T23:59:59Z"
+  },
+  "constraints": [],
+  "verification": {
+    "policy": {
+      "id": "urn:tsto:verification:ar.invoice-settlement:v1",
+      "digest": "sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+    }
+  },
+  "integrity": {
+    "alg": "sha-256",
+    "canonicalization": "RFC8785",
+    "value": "sha-256:DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "jep": "1",
+  "verb": "D",
+  "who": "did:example:merchant-001",
+  "when": 1785772860,
+  "what": {
+    "claim": "tsto_delegation",
+    "delegatee": "did:example:recovery-agent-004",
+    "scope": ["contact_counterparty", "collect_evidence", "submit_for_verification"],
+    "constraints": {
+      "channel_allowlist": ["email", "merchant_portal"],
+      "max_contact_attempts": 5
+    },
+    "expiry": "2026-08-17T23:59:59Z",
+    "termination_conditions": ["explicit_termination_event", "expiry"]
+  },
+  "nonce": "01987654-3210-7abc-8def-200000000002",
+  "aud": "https://pilot.example.net",
+  "ref": {
+    "kind": "external_object",
+    "type": "TargetStateTransition",
+    "spec": "TSTO/00",
+    "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+    "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+  },
+  "sig": "UNSIGNED-EXAMPLE-NOT-A-TEST-VECTOR"
+}
