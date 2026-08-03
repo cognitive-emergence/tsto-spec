@@ -1,0 +1,22 @@
+{
+  "jep": "1",
+  "verb": "T",
+  "who": "did:example:merchant-001",
+  "when": 1785859200,
+  "what": {
+    "claim": "tsto_termination",
+    "subject": {
+      "kind": "external_object",
+      "type": "TargetStateTransition",
+      "spec": "TSTO/00",
+      "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+      "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+    },
+    "termination_scope": "delegation",
+    "reason": "The merchant reassigned the recovery work."
+  },
+  "nonce": "01987654-3210-7abc-8def-200000000003",
+  "aud": "https://pilot.example.net",
+  "ref": "sha256:644f419bcf38f8045de905906a47a8b67b84dde8922d58d600a59b8f52b39ede",
+  "sig": "UNSIGNED-EXAMPLE-NOT-A-TEST-VECTOR"
+}
