@@ -1,0 +1,47 @@
+{
+  "jep": "1",
+  "verb": "D",
+  "who": "did:example:binding-01-test-actor",
+  "when": 1785772860,
+  "what": {
+    "claim": "tsto_delegation",
+    "delegatee": "did:example:recovery-agent-004",
+    "scope": [
+      "contact_counterparty",
+      "collect_evidence",
+      "submit_for_verification"
+    ],
+    "constraints": [
+      {
+        "channel_allowlist": [
+          "email",
+          "merchant_portal"
+        ],
+        "max_contact_attempts": 5
+      }
+    ],
+    "expiry": "2026-08-17T23:59:59Z",
+    "termination_conditions": [
+      "explicit_termination_event",
+      "expiry"
+    ]
+  },
+  "nonce": "10000000-0000-4000-8000-000000000002",
+  "aud": "https://pilot.example.net",
+  "ref": {
+    "type": "TargetStateTransition",
+    "value": {
+      "kind": "external_object",
+      "type": "TargetStateTransition",
+      "spec": "TSTO/00",
+      "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+      "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+    }
+  },
+  "ext": {
+    "jep-tsto.binding": {
+      "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+    }
+  },
+  "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..xXcATvv52BVhLhy-rAlp58jmDtYvnEhFTgqaWqMeAEZtQ-I6ElnlEshDwPFDV0_QrMsk6XkZECz39lPmGD6zAw"
+}

@@ -1,0 +1,10 @@
+{
+  "signedEvents": 8,
+  "hostileCasesRejected": 15,
+  "legacyIncompatibilitiesReproduced": 4,
+  "jcs": true,
+  "duplicateMemberRejection": true,
+  "algorithmSeparation": true,
+  "upstreamEd25519SeedPassed": 4,
+  "scope": "joint schemas, JCS, signatures under synthetic actor/key trust, exact TSTO id+digest and content integrity, T target resolution, policy-reference equality; no external policy evaluation"
+}

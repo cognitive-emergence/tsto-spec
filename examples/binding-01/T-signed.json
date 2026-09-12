@@ -1,0 +1,28 @@
+{
+  "jep": "1",
+  "verb": "T",
+  "who": "did:example:binding-01-test-actor",
+  "when": 1785859200,
+  "what": {
+    "claim": "tsto_termination",
+    "subject": {
+      "kind": "external_object",
+      "type": "TargetStateTransition",
+      "spec": "TSTO/00",
+      "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+      "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+    },
+    "termination_scope": "delegation",
+    "reason": "The merchant reassigned the recovery work.",
+    "target": "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f"
+  },
+  "nonce": "10000000-0000-4000-8000-000000000003",
+  "aud": "https://pilot.example.net",
+  "ref": "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f",
+  "ext": {
+    "jep-tsto.binding": {
+      "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+    }
+  },
+  "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..0LTmH1Namm5wlQPt_Gib8StOfsPtO0-5NOtFmARMxVmUvIpeMPquHAIpjQBaY3v_ETM8Msif2gq26rwYlre3Bg"
+}

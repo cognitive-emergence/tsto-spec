@@ -1,0 +1,443 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json",
+  "title": "JEP-TSTO Binding/01",
+  "description": "Supplementary Binding/01 structural schema. Also apply the pinned JEP schema, cryptographic and semantic validation; JSON Schema alone cannot compare T target/ref or resolve immutable objects.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "jep",
+    "verb",
+    "who",
+    "when",
+    "what",
+    "nonce",
+    "ref",
+    "sig",
+    "ext"
+  ],
+  "properties": {
+    "jep": {
+      "const": "1"
+    },
+    "verb": {
+      "enum": [
+        "J",
+        "D",
+        "T",
+        "V"
+      ]
+    },
+    "who": {
+      "type": "string",
+      "minLength": 1
+    },
+    "when": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "what": {
+      "type": "object"
+    },
+    "nonce": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "aud": {
+      "type": "string"
+    },
+    "ref": true,
+    "ext": {
+      "type": "object",
+      "required": [
+        "jep-tsto.binding"
+      ],
+      "properties": {
+        "jep-tsto.binding": {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "const": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          }
+        },
+        "prooftask.binding": false
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "ext_crit": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "not": {
+        "contains": {
+          "const": "jep-tsto.binding"
+        }
+      }
+    },
+    "sig": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verb": {
+            "const": "J"
+          }
+        },
+        "required": [
+          "verb"
+        ]
+      },
+      "then": {
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/tstoEventRef"
+          },
+          "what": {
+            "$ref": "#/$defs/judgment"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verb": {
+            "const": "D"
+          }
+        },
+        "required": [
+          "verb"
+        ]
+      },
+      "then": {
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/tstoEventRef"
+          },
+          "what": {
+            "$ref": "#/$defs/delegation"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verb": {
+            "const": "T"
+          }
+        },
+        "required": [
+          "verb"
+        ]
+      },
+      "then": {
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/jepEventHash"
+          },
+          "what": {
+            "$ref": "#/$defs/termination"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verb": {
+            "const": "V"
+          }
+        },
+        "required": [
+          "verb"
+        ]
+      },
+      "then": {
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/tstoEventRef"
+          },
+          "what": {
+            "$ref": "#/$defs/verification"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "tstoDigest": {
+      "type": "string",
+      "pattern": "^sha-256:[A-Za-z0-9_-]{43}$"
+    },
+    "jepEventHash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "tstoRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "type",
+        "spec",
+        "id",
+        "digest"
+      ],
+      "properties": {
+        "kind": {
+          "const": "external_object"
+        },
+        "type": {
+          "const": "TargetStateTransition"
+        },
+        "spec": {
+          "const": "TSTO/00"
+        },
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "digest": {
+          "$ref": "#/$defs/tstoDigest"
+        }
+      }
+    },
+    "immutableRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "digest"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "digest": {
+          "$ref": "#/$defs/tstoDigest"
+        }
+      }
+    },
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "digest",
+        "observed_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "$ref": "#/$defs/tstoDigest"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "location": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "judgment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim",
+        "decision"
+      ],
+      "properties": {
+        "claim": {
+          "const": "tsto_judgment"
+        },
+        "decision": {
+          "enum": [
+            "propose",
+            "accept",
+            "reject",
+            "reassess"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "context": {
+          "type": "object"
+        }
+      }
+    },
+    "delegation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim",
+        "delegatee",
+        "scope"
+      ],
+      "properties": {
+        "claim": {
+          "const": "tsto_delegation"
+        },
+        "delegatee": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "expiry": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "termination_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "termination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim",
+        "subject",
+        "termination_scope",
+        "target"
+      ],
+      "properties": {
+        "claim": {
+          "const": "tsto_termination"
+        },
+        "subject": {
+          "$ref": "#/$defs/tstoRef"
+        },
+        "termination_scope": {
+          "enum": [
+            "delegation",
+            "authority",
+            "future_reliance"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/jepEventHash"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim",
+        "verification_scope",
+        "result",
+        "policy_ref",
+        "evidence"
+      ],
+      "properties": {
+        "claim": {
+          "const": "tsto_verification"
+        },
+        "verification_scope": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "external_evidence",
+              "factual_claim",
+              "policy_compliance"
+            ]
+          }
+        },
+        "result": {
+          "enum": [
+            "SATISFIED",
+            "NOT_SATISFIED",
+            "INDETERMINATE"
+          ]
+        },
+        "policy_ref": {
+          "$ref": "#/$defs/immutableRef"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidenceRef"
+          }
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "tstoEventRef": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "TargetStateTransition"
+        },
+        "value": {
+          "$ref": "#/$defs/tstoRef"
+        }
+      }
+    }
+  }
+}

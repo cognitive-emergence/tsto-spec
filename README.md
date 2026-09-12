@@ -1,4 +1,27 @@
-# TSTO/00 Complete Publication
+# TSTO/00 and JEP-TSTO Binding/01
+
+
+## Current Binding/01 publication
+
+**Experimental Binding Draft 01. English is normative; Chinese is informative. This is not a formal standard.** TSTO remains 00 and JEP wire version remains `1`.
+
+- [Binding/01 English specification](bindings/JEP-TSTO-Binding-01.md)
+- [Binding/01 中文译文](bindings/JEP-TSTO-Binding-01.zh-CN.md)
+- [English PDF](docs/JEP-TSTO-Binding-01-EN.pdf) / [中文 PDF](docs/JEP-TSTO-Binding-01-ZH-CN.pdf)
+- [Binding/01 Schema](schemas/jep-tsto-binding-01.schema.json)
+- [Signed J/D/T/V and hostile vectors](examples/binding-01/vectors.json)
+- [Release notes and validation evidence](releases/binding-01/RELEASE-NOTES.md)
+
+Binding/01 corrects the original Binding/00 carrier incompatibilities with the published JEP event Schema. It uses typed J/D/V references, array-valued D constraints, explicit T target equality, and a signed version marker. Historical 00 artifacts below are retained unchanged; their examples do not pass the current joint JEP Schema path.
+
+```sh
+python -m pip install -r scripts/requirements-binding-01.txt
+python scripts/check-binding-01.py
+```
+
+The command checks joint schemas, JCS, signatures and exact references under synthetic test trust. It does not evaluate external evidence truth or full domain policy.
+
+## Original TSTO/00 publication (retained)
 
 **Target State Transition Object Specification**  
 **可验证目标状态迁移对象规范**
