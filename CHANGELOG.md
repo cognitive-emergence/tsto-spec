@@ -1,3 +1,10 @@
+# Binding/01
+
+- Publish independent Experimental Binding Draft 01; TSTO/00 and JEP-Core meanings remain unchanged.
+- Align typed references, delegation arrays, termination target equality and a signed version identifier with the pinned JEP Schema.
+- Add English/Chinese text, PDFs, signed and hostile vectors, joint validation and historical migration rules.
+- Preserve all original 00 normative artifacts and vectors.
+
 # Changelog
 
 ## TSTO/00 — 2026-08-03

@@ -1,0 +1,64 @@
+name: Binding 01 validation and publication
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'bindings/JEP-TSTO-Binding-01*'
+      - 'schemas/jep-tsto-binding-01.schema.json'
+      - 'examples/binding-01/**'
+      - 'scripts/check-binding-01.py'
+      - 'scripts/requirements-binding-01.txt'
+      - 'tests/upstream/**'
+      - 'docs/JEP-TSTO-Binding-01*'
+      - 'releases/binding-01/**'
+      - '.github/workflows/binding-01.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r scripts/requirements-binding-01.txt
+      - uses: actions/checkout@v4
+        with:
+          repository: hjs-spec/jep-v06
+          ref: eef317711e0177a64a301bceb1cb6dfd32bf4fc9
+          path: upstream-jep
+      - run: python scripts/check-binding-01.py --jep-seed upstream-jep/reference-validator/jep_validate.py
+      - run: sha256sum -c releases/binding-01/SHA256SUMS.txt
+  publish:
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish immutable experimental Binding/01 release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          tag=jep-tsto-binding-01
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo 'Binding/01 release already exists; preserving it unchanged.'
+            exit 0
+          fi
+          git archive --format=zip --output=JEP-TSTO-Binding-01.zip HEAD \
+            bindings/JEP-TSTO-Binding-01.md bindings/JEP-TSTO-Binding-01.zh-CN.md \
+            schemas docs/JEP-TSTO-Binding-01-EN.pdf docs/JEP-TSTO-Binding-01-ZH-CN.pdf \
+            examples scripts tests releases/binding-01 SPEC.md SPEC.zh-CN.md LICENSE.md
+          gh release create "$tag" --target "$GITHUB_SHA" --prerelease \
+            --title 'JEP-TSTO Binding/01 - Experimental Draft' \
+            --notes-file releases/binding-01/RELEASE-NOTES.md \
+            JEP-TSTO-Binding-01.zip \
+            docs/JEP-TSTO-Binding-01-EN.pdf docs/JEP-TSTO-Binding-01-ZH-CN.pdf \
+            releases/binding-01/SHA256SUMS.txt

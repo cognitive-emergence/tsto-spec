@@ -1,0 +1,990 @@
+{
+  "note": "Synthetic public test vectors. Referenced external evidence and policy digests are illustrative; no domain result or production trust is asserted.",
+  "publicKey": {
+    "kid": "urn:example:binding-01:TEST-KEY-DO-NOT-TRUST",
+    "kty": "OKP",
+    "crv": "Ed25519",
+    "x": "P8sF9vPBtA9pjkek9Qp6r3oqrIAdIl42YPGgke4tL8E"
+  },
+  "tsto": {
+    "spec": "TSTO/00",
+    "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+    "type": "TargetStateTransition",
+    "issued_at": "2026-08-02T16:00:00Z",
+    "profile": {
+      "id": "urn:tsto:profile:ar.invoice-settlement:v1",
+      "digest": "sha-256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subject": {
+      "id": "urn:merchant:demo:invoice:INV-2026-0088",
+      "type": "Invoice",
+      "version": "erp-etag-184"
+    },
+    "baseline": {
+      "observed_at": "2026-08-02T15:55:00Z",
+      "claims": [
+        {
+          "op": "eq",
+          "path": "/status",
+          "value": "overdue"
+        },
+        {
+          "op": "eq",
+          "path": "/balance_due_minor",
+          "value": 1200000
+        }
+      ],
+      "evidence": [
+        {
+          "id": "urn:uuid:01987654-3210-7abc-8def-111111111111",
+          "kind": "erp_snapshot",
+          "digest": "sha-256:BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+          "observed_at": "2026-08-02T15:55:00Z",
+          "media_type": "application/json"
+        }
+      ]
+    },
+    "target": {
+      "claims": [
+        {
+          "op": "eq",
+          "path": "/status",
+          "value": "settled"
+        },
+        {
+          "op": "eq",
+          "path": "/balance_due_minor",
+          "value": 0
+        }
+      ]
+    },
+    "validity": {
+      "not_before": "2026-08-02T16:00:00Z",
+      "achieve_by": "2026-08-15T23:59:59Z",
+      "verify_by": "2026-08-17T23:59:59Z",
+      "sustain_for": "P1D"
+    },
+    "constraints": [
+      {
+        "id": "no-open-dispute",
+        "scope": "interval",
+        "predicate": {
+          "op": "eq",
+          "path": "/dispute/open",
+          "value": false
+        }
+      }
+    ],
+    "verification": {
+      "policy": {
+        "id": "urn:tsto:verification:ar.invoice-settlement:v1",
+        "digest": "sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+      },
+      "parameters": {
+        "allowed_evidence_kinds": [
+          "bank_settlement_receipt",
+          "erp_ledger_entry"
+        ],
+        "max_clock_skew_seconds": 300
+      }
+    },
+    "integrity": {
+      "alg": "sha-256",
+      "canonicalization": "RFC8785",
+      "value": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+    }
+  },
+  "profiles": [
+    {
+      "algorithm": "Ed25519",
+      "events": [
+        {
+          "jep": "1",
+          "verb": "J",
+          "who": "did:example:binding-01-test-actor",
+          "when": 1785772800,
+          "what": {
+            "claim": "tsto_judgment",
+            "decision": "accept",
+            "reason": "The target and verification policy are accepted for this pilot."
+          },
+          "nonce": "10000000-0000-4000-8000-000000000001",
+          "aud": "https://pilot.example.net",
+          "ref": {
+            "type": "TargetStateTransition",
+            "value": {
+              "kind": "external_object",
+              "type": "TargetStateTransition",
+              "spec": "TSTO/00",
+              "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+              "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+            }
+          },
+          "ext": {
+            "jep-tsto.binding": {
+              "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          },
+          "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..G-ARc1t9rkt20k9wBV-C78ZVLVY3BFC8WCPp4BXi03DEPKQe-MHcoeGcjXj_wGq6ZHZdO4rEwd_f0tXVFsosDQ"
+        },
+        {
+          "jep": "1",
+          "verb": "D",
+          "who": "did:example:binding-01-test-actor",
+          "when": 1785772860,
+          "what": {
+            "claim": "tsto_delegation",
+            "delegatee": "did:example:recovery-agent-004",
+            "scope": [
+              "contact_counterparty",
+              "collect_evidence",
+              "submit_for_verification"
+            ],
+            "constraints": [
+              {
+                "channel_allowlist": [
+                  "email",
+                  "merchant_portal"
+                ],
+                "max_contact_attempts": 5
+              }
+            ],
+            "expiry": "2026-08-17T23:59:59Z",
+            "termination_conditions": [
+              "explicit_termination_event",
+              "expiry"
+            ]
+          },
+          "nonce": "10000000-0000-4000-8000-000000000002",
+          "aud": "https://pilot.example.net",
+          "ref": {
+            "type": "TargetStateTransition",
+            "value": {
+              "kind": "external_object",
+              "type": "TargetStateTransition",
+              "spec": "TSTO/00",
+              "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+              "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+            }
+          },
+          "ext": {
+            "jep-tsto.binding": {
+              "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          },
+          "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..xXcATvv52BVhLhy-rAlp58jmDtYvnEhFTgqaWqMeAEZtQ-I6ElnlEshDwPFDV0_QrMsk6XkZECz39lPmGD6zAw"
+        },
+        {
+          "jep": "1",
+          "verb": "T",
+          "who": "did:example:binding-01-test-actor",
+          "when": 1785859200,
+          "what": {
+            "claim": "tsto_termination",
+            "subject": {
+              "kind": "external_object",
+              "type": "TargetStateTransition",
+              "spec": "TSTO/00",
+              "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+              "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+            },
+            "termination_scope": "delegation",
+            "reason": "The merchant reassigned the recovery work.",
+            "target": "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f"
+          },
+          "nonce": "10000000-0000-4000-8000-000000000003",
+          "aud": "https://pilot.example.net",
+          "ref": "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f",
+          "ext": {
+            "jep-tsto.binding": {
+              "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          },
+          "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..0LTmH1Namm5wlQPt_Gib8StOfsPtO0-5NOtFmARMxVmUvIpeMPquHAIpjQBaY3v_ETM8Msif2gq26rwYlre3Bg"
+        },
+        {
+          "jep": "1",
+          "verb": "V",
+          "who": "did:example:binding-01-test-actor",
+          "when": 1786982400,
+          "what": {
+            "claim": "tsto_verification",
+            "verification_scope": [
+              "external_evidence",
+              "factual_claim",
+              "policy_compliance"
+            ],
+            "result": "SATISFIED",
+            "policy_ref": {
+              "id": "urn:tsto:verification:ar.invoice-settlement:v1",
+              "digest": "sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+            },
+            "evidence": [
+              {
+                "id": "urn:uuid:01987654-3210-7abc-8def-300000000001",
+                "kind": "bank_settlement_receipt",
+                "digest": "sha-256:EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+                "observed_at": "2026-08-15T18:20:00Z",
+                "media_type": "application/json",
+                "location": "https://evidence.example.net/receipts/300000000001"
+              }
+            ],
+            "observed_at": "2026-08-15T18:20:00Z",
+            "reason": "The required ledger and bank evidence satisfy the selected policy."
+          },
+          "nonce": "10000000-0000-4000-8000-000000000004",
+          "aud": "https://pilot.example.net",
+          "ref": {
+            "type": "TargetStateTransition",
+            "value": {
+              "kind": "external_object",
+              "type": "TargetStateTransition",
+              "spec": "TSTO/00",
+              "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+              "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+            }
+          },
+          "ext": {
+            "jep-tsto.binding": {
+              "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          },
+          "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..HLsdtup1w1XiPwOCui-kTxfDf7kbol3VudIzntvogRmKn4mTXnqMrfiUKtmhjCV_5my_h-kSIpO0xQ6hNF7-CA"
+        }
+      ],
+      "eventHashes": [
+        "sha256:85c7f258e769685fac744f7e680b06fadfd1150b0636ad4e03bad573befd6049",
+        "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f",
+        "sha256:51be6c5a3f794f5a59d926653cfa102a4610561f6d1416f7aaf9326f8c84dad2",
+        "sha256:66635dab71c3b4c04f308b11ca71e0f29d890fa60a6ce84ccaeff5edfed7764a"
+      ],
+      "unsignedCanonicalUtf8": [
+        "{\"aud\":\"https://pilot.example.net\",\"ext\":{\"jep-tsto.binding\":{\"id\":\"https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json\"}},\"jep\":\"1\",\"nonce\":\"10000000-0000-4000-8000-000000000001\",\"ref\":{\"type\":\"TargetStateTransition\",\"value\":{\"digest\":\"sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-0123456789ab\",\"kind\":\"external_object\",\"spec\":\"TSTO/00\",\"type\":\"TargetStateTransition\"}},\"verb\":\"J\",\"what\":{\"claim\":\"tsto_judgment\",\"decision\":\"accept\",\"reason\":\"The target and verification policy are accepted for this pilot.\"},\"when\":1785772800,\"who\":\"did:example:binding-01-test-actor\"}",
+        "{\"aud\":\"https://pilot.example.net\",\"ext\":{\"jep-tsto.binding\":{\"id\":\"https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json\"}},\"jep\":\"1\",\"nonce\":\"10000000-0000-4000-8000-000000000002\",\"ref\":{\"type\":\"TargetStateTransition\",\"value\":{\"digest\":\"sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-0123456789ab\",\"kind\":\"external_object\",\"spec\":\"TSTO/00\",\"type\":\"TargetStateTransition\"}},\"verb\":\"D\",\"what\":{\"claim\":\"tsto_delegation\",\"constraints\":[{\"channel_allowlist\":[\"email\",\"merchant_portal\"],\"max_contact_attempts\":5}],\"delegatee\":\"did:example:recovery-agent-004\",\"expiry\":\"2026-08-17T23:59:59Z\",\"scope\":[\"contact_counterparty\",\"collect_evidence\",\"submit_for_verification\"],\"termination_conditions\":[\"explicit_termination_event\",\"expiry\"]},\"when\":1785772860,\"who\":\"did:example:binding-01-test-actor\"}",
+        "{\"aud\":\"https://pilot.example.net\",\"ext\":{\"jep-tsto.binding\":{\"id\":\"https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json\"}},\"jep\":\"1\",\"nonce\":\"10000000-0000-4000-8000-000000000003\",\"ref\":\"sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f\",\"verb\":\"T\",\"what\":{\"claim\":\"tsto_termination\",\"reason\":\"The merchant reassigned the recovery work.\",\"subject\":{\"digest\":\"sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-0123456789ab\",\"kind\":\"external_object\",\"spec\":\"TSTO/00\",\"type\":\"TargetStateTransition\"},\"target\":\"sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f\",\"termination_scope\":\"delegation\"},\"when\":1785859200,\"who\":\"did:example:binding-01-test-actor\"}",
+        "{\"aud\":\"https://pilot.example.net\",\"ext\":{\"jep-tsto.binding\":{\"id\":\"https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json\"}},\"jep\":\"1\",\"nonce\":\"10000000-0000-4000-8000-000000000004\",\"ref\":{\"type\":\"TargetStateTransition\",\"value\":{\"digest\":\"sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-0123456789ab\",\"kind\":\"external_object\",\"spec\":\"TSTO/00\",\"type\":\"TargetStateTransition\"}},\"verb\":\"V\",\"what\":{\"claim\":\"tsto_verification\",\"evidence\":[{\"digest\":\"sha-256:EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-300000000001\",\"kind\":\"bank_settlement_receipt\",\"location\":\"https://evidence.example.net/receipts/300000000001\",\"media_type\":\"application/json\",\"observed_at\":\"2026-08-15T18:20:00Z\"}],\"observed_at\":\"2026-08-15T18:20:00Z\",\"policy_ref\":{\"digest\":\"sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\",\"id\":\"urn:tsto:verification:ar.invoice-settlement:v1\"},\"reason\":\"The required ledger and bank evidence satisfy the selected policy.\",\"result\":\"SATISFIED\",\"verification_scope\":[\"external_evidence\",\"factual_claim\",\"policy_compliance\"]},\"when\":1786982400,\"who\":\"did:example:binding-01-test-actor\"}"
+      ]
+    },
+    {
+      "algorithm": "EdDSA",
+      "events": [
+        {
+          "jep": "1",
+          "verb": "J",
+          "who": "did:example:binding-01-test-actor",
+          "when": 1785772800,
+          "what": {
+            "claim": "tsto_judgment",
+            "decision": "accept",
+            "reason": "The target and verification policy are accepted for this pilot."
+          },
+          "nonce": "10000000-0000-4000-8000-000000000001",
+          "aud": "https://pilot.example.net",
+          "ref": {
+            "type": "TargetStateTransition",
+            "value": {
+              "kind": "external_object",
+              "type": "TargetStateTransition",
+              "spec": "TSTO/00",
+              "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+              "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+            }
+          },
+          "ext": {
+            "jep-tsto.binding": {
+              "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          },
+          "sig": "eyJhbGciOiJFZERTQSIsImtpZCI6InVybjpleGFtcGxlOmJpbmRpbmctMDE6VEVTVC1LRVktRE8tTk9ULVRSVVNUIn0..AQx6S0PezRFmFX3j178AIZxezgyp_2KIE0p__Ocou5uamWlhgn4cdxza3_bTMptCsNSIiY86uCXCl-qyup5qDw"
+        },
+        {
+          "jep": "1",
+          "verb": "D",
+          "who": "did:example:binding-01-test-actor",
+          "when": 1785772860,
+          "what": {
+            "claim": "tsto_delegation",
+            "delegatee": "did:example:recovery-agent-004",
+            "scope": [
+              "contact_counterparty",
+              "collect_evidence",
+              "submit_for_verification"
+            ],
+            "constraints": [
+              {
+                "channel_allowlist": [
+                  "email",
+                  "merchant_portal"
+                ],
+                "max_contact_attempts": 5
+              }
+            ],
+            "expiry": "2026-08-17T23:59:59Z",
+            "termination_conditions": [
+              "explicit_termination_event",
+              "expiry"
+            ]
+          },
+          "nonce": "10000000-0000-4000-8000-000000000002",
+          "aud": "https://pilot.example.net",
+          "ref": {
+            "type": "TargetStateTransition",
+            "value": {
+              "kind": "external_object",
+              "type": "TargetStateTransition",
+              "spec": "TSTO/00",
+              "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+              "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+            }
+          },
+          "ext": {
+            "jep-tsto.binding": {
+              "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          },
+          "sig": "eyJhbGciOiJFZERTQSIsImtpZCI6InVybjpleGFtcGxlOmJpbmRpbmctMDE6VEVTVC1LRVktRE8tTk9ULVRSVVNUIn0..cWssaPtkBq_igutCHrZ5HMOmYw2WPTrfxRExEEkc8pX-qBe4oMCd93soXF4dksq0e-DI3mLhgOEgczZb6YS3Bw"
+        },
+        {
+          "jep": "1",
+          "verb": "T",
+          "who": "did:example:binding-01-test-actor",
+          "when": 1785859200,
+          "what": {
+            "claim": "tsto_termination",
+            "subject": {
+              "kind": "external_object",
+              "type": "TargetStateTransition",
+              "spec": "TSTO/00",
+              "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+              "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+            },
+            "termination_scope": "delegation",
+            "reason": "The merchant reassigned the recovery work.",
+            "target": "sha256:1d7b1578402d5512550080dd37b00f4b583a0f2c23b66538ace361e3a1ba2198"
+          },
+          "nonce": "10000000-0000-4000-8000-000000000003",
+          "aud": "https://pilot.example.net",
+          "ref": "sha256:1d7b1578402d5512550080dd37b00f4b583a0f2c23b66538ace361e3a1ba2198",
+          "ext": {
+            "jep-tsto.binding": {
+              "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          },
+          "sig": "eyJhbGciOiJFZERTQSIsImtpZCI6InVybjpleGFtcGxlOmJpbmRpbmctMDE6VEVTVC1LRVktRE8tTk9ULVRSVVNUIn0..lr-amRdRJCgxL1J23BK6cIkKwAfWQ83m7_XvJiP7Yd41EfErD5gAqJ6hV6LzO23ZSj3N4AD9z6jw5DG5-8LxCg"
+        },
+        {
+          "jep": "1",
+          "verb": "V",
+          "who": "did:example:binding-01-test-actor",
+          "when": 1786982400,
+          "what": {
+            "claim": "tsto_verification",
+            "verification_scope": [
+              "external_evidence",
+              "factual_claim",
+              "policy_compliance"
+            ],
+            "result": "SATISFIED",
+            "policy_ref": {
+              "id": "urn:tsto:verification:ar.invoice-settlement:v1",
+              "digest": "sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+            },
+            "evidence": [
+              {
+                "id": "urn:uuid:01987654-3210-7abc-8def-300000000001",
+                "kind": "bank_settlement_receipt",
+                "digest": "sha-256:EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+                "observed_at": "2026-08-15T18:20:00Z",
+                "media_type": "application/json",
+                "location": "https://evidence.example.net/receipts/300000000001"
+              }
+            ],
+            "observed_at": "2026-08-15T18:20:00Z",
+            "reason": "The required ledger and bank evidence satisfy the selected policy."
+          },
+          "nonce": "10000000-0000-4000-8000-000000000004",
+          "aud": "https://pilot.example.net",
+          "ref": {
+            "type": "TargetStateTransition",
+            "value": {
+              "kind": "external_object",
+              "type": "TargetStateTransition",
+              "spec": "TSTO/00",
+              "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+              "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+            }
+          },
+          "ext": {
+            "jep-tsto.binding": {
+              "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+            }
+          },
+          "sig": "eyJhbGciOiJFZERTQSIsImtpZCI6InVybjpleGFtcGxlOmJpbmRpbmctMDE6VEVTVC1LRVktRE8tTk9ULVRSVVNUIn0..HnYxROuaHeKYf5VDk2syASasNXRR_S6_kD7AvZVrGD1DDnqhb0tZ2fYhBrxX6eQw_eCOWrY_aOvC9BoMnBj2Ag"
+        }
+      ],
+      "eventHashes": [
+        "sha256:b3ef1295e18ab897db9ee701982f1e05f8e12d2516db30428c727489fbfe05d8",
+        "sha256:1d7b1578402d5512550080dd37b00f4b583a0f2c23b66538ace361e3a1ba2198",
+        "sha256:1fa1c6124b6567b83e9de347ef80102fcc97247a0cedf78f8338fd2ecf3cab64",
+        "sha256:8d3281438eab7fe6c4bca43cfc823d6c59e0b185d96c684ed3426df2e6448ab9"
+      ],
+      "unsignedCanonicalUtf8": [
+        "{\"aud\":\"https://pilot.example.net\",\"ext\":{\"jep-tsto.binding\":{\"id\":\"https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json\"}},\"jep\":\"1\",\"nonce\":\"10000000-0000-4000-8000-000000000001\",\"ref\":{\"type\":\"TargetStateTransition\",\"value\":{\"digest\":\"sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-0123456789ab\",\"kind\":\"external_object\",\"spec\":\"TSTO/00\",\"type\":\"TargetStateTransition\"}},\"verb\":\"J\",\"what\":{\"claim\":\"tsto_judgment\",\"decision\":\"accept\",\"reason\":\"The target and verification policy are accepted for this pilot.\"},\"when\":1785772800,\"who\":\"did:example:binding-01-test-actor\"}",
+        "{\"aud\":\"https://pilot.example.net\",\"ext\":{\"jep-tsto.binding\":{\"id\":\"https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json\"}},\"jep\":\"1\",\"nonce\":\"10000000-0000-4000-8000-000000000002\",\"ref\":{\"type\":\"TargetStateTransition\",\"value\":{\"digest\":\"sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-0123456789ab\",\"kind\":\"external_object\",\"spec\":\"TSTO/00\",\"type\":\"TargetStateTransition\"}},\"verb\":\"D\",\"what\":{\"claim\":\"tsto_delegation\",\"constraints\":[{\"channel_allowlist\":[\"email\",\"merchant_portal\"],\"max_contact_attempts\":5}],\"delegatee\":\"did:example:recovery-agent-004\",\"expiry\":\"2026-08-17T23:59:59Z\",\"scope\":[\"contact_counterparty\",\"collect_evidence\",\"submit_for_verification\"],\"termination_conditions\":[\"explicit_termination_event\",\"expiry\"]},\"when\":1785772860,\"who\":\"did:example:binding-01-test-actor\"}",
+        "{\"aud\":\"https://pilot.example.net\",\"ext\":{\"jep-tsto.binding\":{\"id\":\"https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json\"}},\"jep\":\"1\",\"nonce\":\"10000000-0000-4000-8000-000000000003\",\"ref\":\"sha256:1d7b1578402d5512550080dd37b00f4b583a0f2c23b66538ace361e3a1ba2198\",\"verb\":\"T\",\"what\":{\"claim\":\"tsto_termination\",\"reason\":\"The merchant reassigned the recovery work.\",\"subject\":{\"digest\":\"sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-0123456789ab\",\"kind\":\"external_object\",\"spec\":\"TSTO/00\",\"type\":\"TargetStateTransition\"},\"target\":\"sha256:1d7b1578402d5512550080dd37b00f4b583a0f2c23b66538ace361e3a1ba2198\",\"termination_scope\":\"delegation\"},\"when\":1785859200,\"who\":\"did:example:binding-01-test-actor\"}",
+        "{\"aud\":\"https://pilot.example.net\",\"ext\":{\"jep-tsto.binding\":{\"id\":\"https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json\"}},\"jep\":\"1\",\"nonce\":\"10000000-0000-4000-8000-000000000004\",\"ref\":{\"type\":\"TargetStateTransition\",\"value\":{\"digest\":\"sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-0123456789ab\",\"kind\":\"external_object\",\"spec\":\"TSTO/00\",\"type\":\"TargetStateTransition\"}},\"verb\":\"V\",\"what\":{\"claim\":\"tsto_verification\",\"evidence\":[{\"digest\":\"sha-256:EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\",\"id\":\"urn:uuid:01987654-3210-7abc-8def-300000000001\",\"kind\":\"bank_settlement_receipt\",\"location\":\"https://evidence.example.net/receipts/300000000001\",\"media_type\":\"application/json\",\"observed_at\":\"2026-08-15T18:20:00Z\"}],\"observed_at\":\"2026-08-15T18:20:00Z\",\"policy_ref\":{\"digest\":\"sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\",\"id\":\"urn:tsto:verification:ar.invoice-settlement:v1\"},\"reason\":\"The required ledger and bank evidence satisfy the selected policy.\",\"result\":\"SATISFIED\",\"verification_scope\":[\"external_evidence\",\"factual_claim\",\"policy_compliance\"]},\"when\":1786982400,\"who\":\"did:example:binding-01-test-actor\"}"
+      ]
+    }
+  ],
+  "hostile": [
+    {
+      "name": "missing-marker",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          }
+        },
+        "ext": {},
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..4kTG5YWE6VVdWBfmbZzB0aKg7659N8exNV9fAoShYeqiePXS1eQteZBZ4BlLUBSTitbbe1YBwIbMfQs_z2FPCQ"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "unknown-version",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "urn:example:unknown-binding"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..-_u9nwBIi_1cCov5lIo1rwQ9PbCmPCg1dVNh9Niyj17dWXF4Sf-dfmu79XXRTMWpQw-ldPA06U-NfSxyPOBTBg"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "mixed-markers",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          },
+          "prooftask.binding": {
+            "id": "urn:prooftask:jep-tsto-binding:01-candidate:1"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..Jmi1dyvMe35gXtREaoSbcg7LfBNeswD0yy7KpZw-p4lImpMRPrtobs_0tC8EXr5HLTaT46YKpZYISxDGECPhCQ"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "bare-reference",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "kind": "external_object",
+          "type": "TargetStateTransition",
+          "spec": "TSTO/00",
+          "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+          "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..i4AbZaEqaEdqX_YQ9OIxpNU8YrOwGaHb2d3GxuckdnqsDB9A0e9UVARwnSxSsrbLn2eYfieSY5ArZa7paHwNDg"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "extra-reference-member",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8",
+            "extra": true
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..p5eK9AlGitcq9wfD9XHTM_If0Jh0EBoVBISqbcSc6b-l_Srl8tLAophE8zU89XChNi4TfrNHWWFx4DMyKrBODQ"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "different-object-id",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:example:other",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..iebX91N5wTFACLeXbVmW7wG--uMfzPz_Dlo5O09WAMjweEN2oR1v5cV_cstC9fcrIthv4uR8YJ3ag4CI2gAmDQ"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "different-object-digest",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..s8B1gMaoq6WRZsWdJh7id8cgeWQwVKPuPmmK2mznWYrSjbahQhHep5CqawP5LgsJEq7v3RDUZ77-FVak7a7-Bw"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "digest-domain-confusion",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..6seZNGqlC6Ws_SVbhGuxpFET_bo4U1vyNiprGWjLGNjzjWKXDKe5nIuu8BfuvyXngCWPQMVfTtQyH5bU_gNLAw"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "object-constraints",
+      "event": {
+        "jep": "1",
+        "verb": "D",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772860,
+        "what": {
+          "claim": "tsto_delegation",
+          "delegatee": "did:example:recovery-agent-004",
+          "scope": [
+            "contact_counterparty",
+            "collect_evidence",
+            "submit_for_verification"
+          ],
+          "constraints": {
+            "attempts": 5
+          },
+          "expiry": "2026-08-17T23:59:59Z",
+          "termination_conditions": [
+            "explicit_termination_event",
+            "expiry"
+          ]
+        },
+        "nonce": "10000000-0000-4000-8000-000000000002",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..efya0nkozug99O07Am_HLocq-dpCwsFRA6LIpGoPMCkhNqOfsTB2BpxTKxlIo2tJvkTSIttMIv2-KzPVb5oaCw"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "missing-termination-target",
+      "event": {
+        "jep": "1",
+        "verb": "T",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785859200,
+        "what": {
+          "claim": "tsto_termination",
+          "subject": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          },
+          "termination_scope": "delegation",
+          "reason": "The merchant reassigned the recovery work."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000003",
+        "aud": "https://pilot.example.net",
+        "ref": "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f",
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..hM0fNWFqOz9kTmh4YJDC54vPN3whAMSVp7lfl5ZlKMIq7d4_dvGFf4aDtsIMLbZZ_Jx7VO4mQ0t3iQ5J8UelDA"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "different-termination-target",
+      "event": {
+        "jep": "1",
+        "verb": "T",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785859200,
+        "what": {
+          "claim": "tsto_termination",
+          "subject": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          },
+          "termination_scope": "delegation",
+          "reason": "The merchant reassigned the recovery work.",
+          "target": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "nonce": "10000000-0000-4000-8000-000000000003",
+        "aud": "https://pilot.example.net",
+        "ref": "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f",
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..Vz-YsZqjmlN32KqqXu1hoZ3VzmDv26-S_mNCa35T9_FAw71cfmY7P_sXtdCBiY4xOQPSWw_kNaq6L638Mj_9AQ"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "unresolved-termination-target",
+      "event": {
+        "jep": "1",
+        "verb": "T",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785859200,
+        "what": {
+          "claim": "tsto_termination",
+          "subject": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          },
+          "termination_scope": "delegation",
+          "reason": "The merchant reassigned the recovery work.",
+          "target": "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f"
+        },
+        "nonce": "10000000-0000-4000-8000-000000000003",
+        "aud": "https://pilot.example.net",
+        "ref": "sha256:a6c13a1c73a73a2fd11e5656b20948d04fa43b604dd9d894a6373659dd23c71f",
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..0LTmH1Namm5wlQPt_Gib8StOfsPtO0-5NOtFmARMxVmUvIpeMPquHAIpjQBaY3v_ETM8Msif2gq26rwYlre3Bg"
+      },
+      "signatureValid": true,
+      "unresolved": true
+    },
+    {
+      "name": "different-policy",
+      "event": {
+        "jep": "1",
+        "verb": "V",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1786982400,
+        "what": {
+          "claim": "tsto_verification",
+          "verification_scope": [
+            "external_evidence",
+            "factual_claim",
+            "policy_compliance"
+          ],
+          "result": "SATISFIED",
+          "policy_ref": {
+            "id": "urn:example:other-policy",
+            "digest": "sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+          },
+          "evidence": [
+            {
+              "id": "urn:uuid:01987654-3210-7abc-8def-300000000001",
+              "kind": "bank_settlement_receipt",
+              "digest": "sha-256:EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+              "observed_at": "2026-08-15T18:20:00Z",
+              "media_type": "application/json",
+              "location": "https://evidence.example.net/receipts/300000000001"
+            }
+          ],
+          "observed_at": "2026-08-15T18:20:00Z",
+          "reason": "The required ledger and bank evidence satisfy the selected policy."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000004",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..9vnv6ETAr6TLxamEWKEq7Gk2_UIvoLBGb7jN1HrKvPYmFDLvE-0y4P6HKXCwfk_KPxhgl0FSULtq9DE8VAI6BA"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "unknown-critical-extension",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "accept",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "ext_crit": [
+          "urn:example:unsupported"
+        ],
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..qDAAx2OFo7siYnpP0ySSUDsBgnmFHTNfdfolPH8PDDF6EsFsexiJjyADtq7gEfm4cWmRYpihJrW2nAKH9ItLBA"
+      },
+      "signatureValid": true,
+      "unresolved": false
+    },
+    {
+      "name": "tampered-after-signing",
+      "event": {
+        "jep": "1",
+        "verb": "J",
+        "who": "did:example:binding-01-test-actor",
+        "when": 1785772800,
+        "what": {
+          "claim": "tsto_judgment",
+          "decision": "reject",
+          "reason": "The target and verification policy are accepted for this pilot."
+        },
+        "nonce": "10000000-0000-4000-8000-000000000001",
+        "aud": "https://pilot.example.net",
+        "ref": {
+          "type": "TargetStateTransition",
+          "value": {
+            "kind": "external_object",
+            "type": "TargetStateTransition",
+            "spec": "TSTO/00",
+            "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+            "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+          }
+        },
+        "ext": {
+          "jep-tsto.binding": {
+            "id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-01.schema.json"
+          }
+        },
+        "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMTpURVNULUtFWS1ETy1OT1QtVFJVU1QifQ..G-ARc1t9rkt20k9wBV-C78ZVLVY3BFC8WCPp4BXi03DEPKQe-MHcoeGcjXj_wGq6ZHZdO4rEwd_f0tXVFsosDQ"
+      },
+      "signatureValid": false,
+      "unresolved": false
+    }
+  ],
+  "jcs": {
+    "input": {
+      "10": 1e-07,
+      "2": 1e+20,
+      "😀": -0.0,
+      "": 1e+30,
+      "text": "Unicode 王 / control\n"
+    },
+    "expectedUtf8": "{\"10\":1e-7,\"2\":100000000000000000000,\"text\":\"Unicode 王 / control\\n\",\"😀\":0,\"\":1e+30}",
+    "sha256": "448e9e6734e29baa447c9ab5e94a668d2fc92d1d3514d76f7ac98bd840a9a299"
+  }
+}
