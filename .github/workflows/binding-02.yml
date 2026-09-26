@@ -1,0 +1,45 @@
+name: JEP-TSTO Binding/02
+
+on:
+  pull_request:
+    paths:
+      - "bindings/JEP-TSTO-Binding-02.md"
+      - "schemas/jep-tsto-binding-02.schema.json"
+      - ".github/workflows/binding-02.yml"
+  push:
+    branches: [main]
+    paths:
+      - "bindings/JEP-TSTO-Binding-02.md"
+      - "schemas/jep-tsto-binding-02.schema.json"
+      - ".github/workflows/binding-02.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install jsonschema
+      - name: Validate Binding/02 schema
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+          p=Path("schemas/jep-tsto-binding-02.schema.json")
+          schema=json.loads(p.read_text())
+          Draft202012Validator.check_schema(schema)
+          assert schema["$id"].endswith("jep-tsto-binding-02.schema.json")
+          print("Binding/02 schema OK")
+          PY
+      - name: Check Core 0.7 boundaries
+        run: |
+          grep -q "JEP Core 0.7" bindings/JEP-TSTO-Binding-02.md
+          grep -q 'type": "jep:event"' bindings/JEP-TSTO-Binding-02.md
+          grep -q "Event Hash" bindings/JEP-TSTO-Binding-02.md
+          ! grep -q "mandatory nonce" bindings/JEP-TSTO-Binding-02.md
