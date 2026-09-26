@@ -109,3 +109,15 @@ Suggested Git tag: `tsto-00`. Citation metadata is in `CITATION.cff`; Zenodo met
 ## Feedback
 
 Use repository Issues for implementation reports, interoperability findings, Profile proposals, and editorial corrections. Use GitHub's private security advisory feature for sensitive reports.
+
+
+## JEP Core 0.7 binding
+
+The current JEP Core binding work is:
+
+- [JEP-TSTO Binding/02](bindings/JEP-TSTO-Binding-02.md) — JEP Core 0.7
+- [Binding/02 schema](schemas/jep-tsto-binding-02.schema.json)
+
+Binding/01 remains the immutable historical binding for JEP Core 0.6.
+Binding/02 uses JEP Event Identity `(who,id)` for semantic event targets;
+an Event Hash may additionally pin one exact signed artifact.
