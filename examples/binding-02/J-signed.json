@@ -1,0 +1,30 @@
+{
+  "jep": "1",
+  "verb": "J",
+  "who": "did:example:binding-02-test-actor",
+  "when": 1785772800,
+  "what": {
+    "claim": "tsto_judgment",
+    "decision": "accept",
+    "reason": "The target and verification policy are accepted for this pilot."
+  },
+  "aud": "https://pilot.example.net",
+  "ref": {
+    "type": "tsto:target-state-transition",
+    "value": {
+      "kind": "external_object",
+      "type": "TargetStateTransition",
+      "spec": "TSTO/00",
+      "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+      "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+    }
+  },
+  "ext": {
+    "jep-tsto.binding": {
+      "version": "02",
+      "spec": "JEP-TSTO-Binding/02"
+    }
+  },
+  "id": "urn:example:binding-02:J",
+  "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMjpQVUJMSUMtVEVTVC1LRVktRE8tTk9ULVRSVVNUIn0..2g1ZwFaun1Qk_UgX5FXNZ8YdWnShCBqbZLRZLxIxNOQeVSmwPO4BtLavohhYgxAMmBjG9FHC-sS_BIm6L_KABA"
+}

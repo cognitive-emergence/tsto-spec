@@ -1,0 +1,35 @@
+{
+  "jep": "1",
+  "verb": "T",
+  "who": "did:example:binding-02-test-actor",
+  "when": 1785859200,
+  "what": {
+    "claim": "tsto_termination",
+    "subject": {
+      "kind": "external_object",
+      "type": "TargetStateTransition",
+      "spec": "TSTO/00",
+      "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+      "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+    },
+    "termination_scope": "delegation",
+    "reason": "The merchant reassigned the recovery work."
+  },
+  "aud": "https://pilot.example.net",
+  "ref": {
+    "type": "jep:event",
+    "value": {
+      "who": "did:example:binding-02-test-actor",
+      "id": "urn:example:binding-02:D"
+    },
+    "hash": "sha256:4f5fe3cb658ca18758fe50f47aabd3714cf94c84f321742caca2fdb32a5f35a9"
+  },
+  "ext": {
+    "jep-tsto.binding": {
+      "version": "02",
+      "spec": "JEP-TSTO-Binding/02"
+    }
+  },
+  "id": "urn:example:binding-02:T",
+  "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMjpQVUJMSUMtVEVTVC1LRVktRE8tTk9ULVRSVVNUIn0..7JjSfQOkTJgHM0X40qhD5D3aX1rS3SknOUfRMkIqE7Y99HUKdgvqllWovLC9yl1BJXNYkkM_oiHi7ol4TgCEBw"
+}

@@ -1,0 +1,79 @@
+name: Binding 02 validation and publication
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - 'bindings/JEP-TSTO-Binding-02.md'
+      - 'schemas/**'
+      - 'examples/**'
+      - 'scripts/**'
+      - 'tests/upstream/**'
+      - 'releases/binding-02/**'
+      - '.github/workflows/binding-02.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r scripts/requirements-binding-02.txt
+      - uses: actions/checkout@v4
+        with:
+          repository: hjs-spec/jep-core
+          ref: 32e3321f887d52b5a50942d1eb7a42f618b2771d
+          path: upstream-jep
+      - name: Cross-repository signatures, references and acceptance
+        run: |
+          python scripts/check-binding-02.py --jep-root upstream-jep > actual-report.json
+          diff -u releases/binding-02/validation-report.json actual-report.json
+          cat actual-report.json
+      - name: Preserve published 00 and 01 artifacts
+        run: |
+          sha256sum -c releases/binding-01/SHA256SUMS.txt
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          for line in Path('SHA256SUMS.txt').read_text().splitlines():
+              expected, name = line.split(maxsplit=1)
+              path = Path(name)
+              if path.parts[0] in ('bindings', 'schemas', 'examples', 'docs') or path.name.startswith('SPEC'):
+                  assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, name
+          print('Original 00 normative texts, schemas, examples and PDFs unchanged')
+          PY
+      - run: sha256sum -c releases/binding-02/SHA256SUMS.txt
+  publish:
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish first experimental Binding/02 without replacing history
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          tag=jep-tsto-binding-02
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo 'Binding/02 release already exists; preserving it unchanged.'
+            exit 0
+          fi
+          refs=$(gh api "repos/$GITHUB_REPOSITORY/git/matching-refs/tags/$tag" --jq 'length')
+          test "$refs" -eq 0 || { echo 'Existing tag without a release: inspect before publishing.'; exit 1; }
+          git archive --format=zip --output=JEP-TSTO-Binding-02.zip HEAD
+          gh release create "$tag" --target "$GITHUB_SHA" --prerelease \
+            --title 'JEP-TSTO Binding/02 - Experimental Draft' \
+            --notes-file releases/binding-02/RELEASE-NOTES.md \
+            JEP-TSTO-Binding-02.zip releases/binding-02/SHA256SUMS.txt \
+            releases/binding-02/validation-report.json

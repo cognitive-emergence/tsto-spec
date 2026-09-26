@@ -1,0 +1,13 @@
+{
+  "core": "0.7",
+  "binding": "02",
+  "signedEvents": 10,
+  "hostileEventCasesRejected": 30,
+  "invalidJsonCasesRejected": 6,
+  "historicalEventsRejected": 4,
+  "tstoSemanticFailuresRejected": 3,
+  "identityAndArtifactSeparation": true,
+  "idempotentAcceptance": true,
+  "rejectedInputLeavesStateUnchanged": true,
+  "scope": "joint schemas, pinned upstream baseline signatures and synthetic actor trust, exact TSTO integrity/references, T identity/hash resolution, V policy-reference equality; profile/policy/evidence truth not checked"
+}
