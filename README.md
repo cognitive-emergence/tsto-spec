@@ -8,10 +8,11 @@
 | --- | --- |
 | Target-state object | [TSTO/00](SPEC.md) · [中文](SPEC.zh-CN.md) |
 | Current JEP integration | [Binding/02](bindings/JEP-TSTO-Binding-02.md) · [supplementary Schema](schemas/jep-tsto-binding-02.schema.json) |
-| Reproduce interoperability | [Signed examples and hostile vectors](examples/binding-02/vectors.json) · [validation report](releases/binding-02/validation-report.json) |
+| Reproduce published Binding/02 | [Signed examples and hostile vectors](examples/binding-02/vectors.json) · [validation report](releases/binding-02/validation-report.json) |
+| Check current implementations | [Core 0.7 cross-repository gate](https://github.com/hjs-spec/jep-core/tree/main/integration#current-core-07--binding02) |
 | Publication and migration | [Binding/02 release notes](releases/binding-02/RELEASE-NOTES.md) |
 
-## Validate
+## Reproduce the published release
 
 From this repository, with Python 3.12 in a virtual environment:
 
@@ -25,6 +26,8 @@ python scripts/check-binding-02.py --jep-root ../jep-core
 
 The harness checks the pinned Core validator and Schema hashes before execution. It tests real baseline signatures with public synthetic keys, joint structure, TSTO integrity, exact references, termination targets and Core idempotent acceptance. Its external Profile/Policy/Evidence references are illustrative: **domain policy and external truth remain `not_checked`**. It is a conformance fixture, not a production verifier or credential store.
 
+Current Core software patches are checked by the linked cross-repository gate. In particular, it verifies that JavaScript, Python and Go serialization preserve signed numbers and empty members. The original harness above stays pinned to its published implementation and report; do not replace its pin with `main` or interpret that historical implementation as the latest recommended software.
+
 ## Versions
 
 | Binding | JEP Core | Status |
@@ -35,6 +38,6 @@ The harness checks the pinned Core validator and Schema hashes before execution.
 
 Select the version explicitly. Wire `jep: "1"` does not distinguish these revisions. Do not rewrite old signatures or retry another decoder after validation fails. The competing unpublished 02 proposals in PRs #5 and #6 are superseded by the main-branch `version/spec` marker and `tsto:target-state-transition` carrier.
 
-Original 00/01 specifications, translations, PDFs, schemas and signed fixtures remain unchanged. The root `SHA256SUMS.txt` and `RELEASE_CHECKLIST.md` describe the original 00 publication, not today's repository index. Each later release has its own manifest under `releases/`.
+Original 00/01 specifications, translations, PDFs, schemas and signed fixtures remain unchanged. The root `SHA256SUMS.txt` and `RELEASE_CHECKLIST.md` describe the original 00 publication, not today's repository index. Each later release has its own manifest under `releases/`. The Binding/02 manifest describes the immutable release archive, including the README, changelog and workflow as they appeared at publication. Those three repository entry points can evolve; CI continues to verify every other listed Binding/02 file against the original manifest.
 
 Use [Issues](https://github.com/cognitive-emergence/tsto-spec/issues) for interoperability findings and [private security advisories](https://github.com/cognitive-emergence/tsto-spec/security/advisories) for sensitive reports. [Contribution rules](CONTRIBUTING.md) · [CC BY 4.0](LICENSE.md) · [Citation](CITATION.cff).
