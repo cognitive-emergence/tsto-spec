@@ -42,4 +42,4 @@ jobs:
           grep -q "JEP Core 0.7" bindings/JEP-TSTO-Binding-02.md
           grep -q 'type": "jep:event"' bindings/JEP-TSTO-Binding-02.md
           grep -q "Event Hash" bindings/JEP-TSTO-Binding-02.md
-          ! grep -q "mandatory nonce" bindings/JEP-TSTO-Binding-02.md
+          grep -q "does not add a mandatory nonce" bindings/JEP-TSTO-Binding-02.md
