@@ -1,3 +1,10 @@
+## 2026-09-26 — Current implementation follow-up
+
+- Separate original Binding/02 release reproduction from current Core/SDK/API interoperability checks.
+- Link the current gate covering signature/hash preservation across client serializers, including large JCS numbers and explicit empty members.
+- Allow the repository README, changelog and CI entry point to evolve while retaining the original release manifest and every frozen normative/test artifact byte-for-byte.
+- No Binding revision, new release, signature rewrite or change to the published harness/report.
+
 ## 2026-09-26 — JEP-TSTO Binding/02
 
 - Completed the first executable Binding/02 publication for JEP Core 0.7.

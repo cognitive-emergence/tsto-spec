@@ -50,7 +50,20 @@ jobs:
                   assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, name
           print('Original 00 normative texts, schemas, examples and PDFs unchanged')
           PY
-      - run: sha256sum -c releases/binding-02/SHA256SUMS.txt
+      - name: Preserve published Binding/02 artifacts
+        run: |
+          python - <<'PYCODE'
+          import hashlib
+          from pathlib import Path
+          # The manifest describes the immutable release archive. Only these
+          # current repository entry points may evolve after publication.
+          mutable = {'README.md', 'CHANGELOG.md', '.github/workflows/binding-02.yml'}
+          for line in Path('releases/binding-02/SHA256SUMS.txt').read_text().splitlines():
+              expected, name = line.split(maxsplit=1)
+              if name not in mutable:
+                  assert hashlib.sha256(Path(name).read_bytes()).hexdigest() == expected, name
+          print('Published Binding/02 specifications, schemas, fixtures, harness and report unchanged')
+          PYCODE
   publish:
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
