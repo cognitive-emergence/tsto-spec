@@ -1,3 +1,14 @@
+# Changelog
+
+## Unreleased — JEP-TSTO Binding/02
+
+- Added a JEP Core 0.7 binding without modifying Binding/01.
+- Uses JEP Event Identity `(who,id)` for logical event references.
+- Keeps Event Hash only as an optional exact-artifact pin.
+- Removes mandatory Binding-level nonce assumptions; freshness remains profile-defined.
+- Aligns D/T/V minimum fields with JEP Core 0.7.
+- Preserves three-valued TSTO verification results and substantive-neutrality boundaries.
+
 # Binding/01
 
 - Publish independent Experimental Binding Draft 01; TSTO/00 and JEP-Core meanings remain unchanged.
