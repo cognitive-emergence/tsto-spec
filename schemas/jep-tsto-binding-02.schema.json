@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-02.schema.json",
+  "title": "JEP-TSTO Binding/02 event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "jep",
+    "id",
+    "verb",
+    "who",
+    "when",
+    "what",
+    "ref",
+    "ext",
+    "sig"
+  ],
+  "properties": {
+    "jep": {
+      "const": "1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verb": {
+      "enum": [
+        "J",
+        "D",
+        "T",
+        "V"
+      ]
+    },
+    "who": {
+      "type": "string",
+      "minLength": 1
+    },
+    "when": {
+      "type": "integer"
+    },
+    "what": {
+      "type": "object"
+    },
+    "aud": {
+      "type": "string"
+    },
+    "ref": {},
+    "ext": {
+      "type": "object",
+      "required": [
+        "jep-tsto.binding"
+      ],
+      "properties": {
+        "jep-tsto.binding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "const": "https://raw.githubusercontent.com/cognitive-emergence/tsto-spec/main/schemas/jep-tsto-binding-02.schema.json"
+            }
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "ext_crit": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "sig": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "minProperties": 1
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "tstoRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "type",
+        "spec",
+        "id",
+        "digest"
+      ],
+      "properties": {
+        "kind": {
+          "const": "external_object"
+        },
+        "type": {
+          "const": "TargetStateTransition"
+        },
+        "spec": {
+          "const": "TSTO/00"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha-256:[A-Za-z0-9_-]{43}$"
+        }
+      }
+    },
+    "tstoCarrier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "const": "TargetStateTransition"
+        },
+        "value": {
+          "$ref": "#/$defs/tstoRef"
+        }
+      }
+    },
+    "jepEventRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "const": "jep:event"
+        },
+        "value": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "who",
+            "id"
+          ],
+          "properties": {
+            "who": {
+              "type": "string",
+              "minLength": 1
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verb": {
+            "const": "J"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/tstoCarrier"
+          },
+          "what": {
+            "type": "object",
+            "required": [
+              "claim",
+              "decision"
+            ],
+            "properties": {
+              "claim": {
+                "const": "tsto_judgment"
+              },
+              "decision": {
+                "enum": [
+                  "propose",
+                  "accept",
+                  "reject",
+                  "reassess"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verb": {
+            "const": "D"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/tstoCarrier"
+          },
+          "what": {
+            "type": "object",
+            "required": [
+              "claim",
+              "delegatee",
+              "scope"
+            ],
+            "properties": {
+              "claim": {
+                "const": "tsto_delegation"
+              },
+              "delegatee": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 1
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verb": {
+            "const": "T"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/jepEventRef"
+          },
+          "what": {
+            "type": "object",
+            "required": [
+              "claim",
+              "subject",
+              "termination_scope"
+            ],
+            "properties": {
+              "claim": {
+                "const": "tsto_termination"
+              },
+              "subject": {
+                "$ref": "#/$defs/tstoRef"
+              },
+              "termination_scope": {
+                "enum": [
+                  "delegation",
+                  "authority",
+                  "future_reliance"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verb": {
+            "const": "V"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/tstoCarrier"
+          },
+          "what": {
+            "type": "object",
+            "required": [
+              "claim",
+              "verification_scope",
+              "result",
+              "policy_ref",
+              "evidence"
+            ],
+            "properties": {
+              "claim": {
+                "const": "tsto_verification"
+              },
+              "verification_scope": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "result": {
+                "enum": [
+                  "SATISFIED",
+                  "NOT_SATISFIED",
+                  "INDETERMINATE"
+                ]
+              },
+              "policy_ref": {
+                "type": "object"
+              },
+              "evidence": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
