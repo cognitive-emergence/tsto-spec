@@ -1,3 +1,11 @@
+## 2026-09-26 — JEP-TSTO Binding/02
+
+- Added Binding/02 for JEP Core 0.7.
+- Semantic JEP event targets now use Event Identity `(who,id)`; Event Hash is optional exact-artifact pinning.
+- Removed any Binding-level assumption that Core requires nonce-based replay handling.
+- Aligned D/T/V with JEP Core 0.7 verb-specific `what` requirements.
+- Preserved Binding/01 unchanged for historical JEP Core 0.6 verification.
+
 # Binding/01
 
 - Publish independent Experimental Binding Draft 01; TSTO/00 and JEP-Core meanings remain unchanged.
