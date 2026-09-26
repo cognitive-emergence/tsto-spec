@@ -1,0 +1,50 @@
+{
+  "jep": "1",
+  "verb": "V",
+  "who": "did:example:binding-02-test-actor",
+  "when": 1786982400,
+  "what": {
+    "claim": "tsto_verification",
+    "verification_scope": [
+      "external_evidence",
+      "factual_claim",
+      "policy_compliance"
+    ],
+    "result": "SATISFIED",
+    "policy_ref": {
+      "id": "urn:tsto:verification:ar.invoice-settlement:v1",
+      "digest": "sha-256:CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+    },
+    "evidence": [
+      {
+        "id": "urn:uuid:01987654-3210-7abc-8def-300000000001",
+        "kind": "bank_settlement_receipt",
+        "digest": "sha-256:EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+        "observed_at": "2026-08-15T18:20:00Z",
+        "media_type": "application/json",
+        "location": "https://evidence.example.net/receipts/300000000001"
+      }
+    ],
+    "observed_at": "2026-08-15T18:20:00Z",
+    "reason": "The required ledger and bank evidence satisfy the selected policy."
+  },
+  "aud": "https://pilot.example.net",
+  "ref": {
+    "type": "tsto:target-state-transition",
+    "value": {
+      "kind": "external_object",
+      "type": "TargetStateTransition",
+      "spec": "TSTO/00",
+      "id": "urn:uuid:01987654-3210-7abc-8def-0123456789ab",
+      "digest": "sha-256:AXoV963URAQyGjQZ6FTjVf61N1OOTNMedtvNSfPoMG8"
+    }
+  },
+  "ext": {
+    "jep-tsto.binding": {
+      "version": "02",
+      "spec": "JEP-TSTO-Binding/02"
+    }
+  },
+  "id": "urn:example:binding-02:V",
+  "sig": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoidXJuOmV4YW1wbGU6YmluZGluZy0wMjpQVUJMSUMtVEVTVC1LRVktRE8tTk9ULVRSVVNUIn0..G1UzPb_Yu3tZO4sRkosIwjdz92V-6tTUXRlqzJIBPEmaoUoXUDW2wPHu6NB1l4tlaA1Yd4AZqf0ZEoM-gAE4AA"
+}

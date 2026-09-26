@@ -8,6 +8,10 @@
 **License: Creative Commons Attribution 4.0 International (CC BY 4.0)**  
 **Language status: This English text is normative.**
 
+This is the first executable Binding/02 publication. The earlier main-branch
+text and unmerged PRs were implementation work, not released signed formats.
+BCP 14 requirement words have their usual meaning when capitalized.
+
 ---
 
 ## Abstract
@@ -64,7 +68,9 @@ Binding/02 uses this immutable TSTO reference object:
 }
 ```
 
-All five members are REQUIRED.
+Exactly these five members are REQUIRED; additional members are forbidden.
+`id` is an absolute URI. `digest` uses the TSTO/00 SHA-256, unpadded
+Base64URL form (`sha-256:` followed by 43 characters).
 
 - `id` MUST equal the TSTO `id`.
 - `digest` MUST equal the TSTO integrity digest.
@@ -88,7 +94,10 @@ Each new Binding/02 event MUST carry:
 }
 ```
 
-The marker MUST be signed as part of the JEP unsigned event payload.
+The marker contains exactly `version` and `spec`, with the values above,
+and MUST be signed as part of the JEP unsigned event payload. A Schema-URL
+`id` marker from Binding/01 or an unpublished 02 proposal is not this marker.
+A conflicting historical `prooftask.binding` marker MUST be rejected.
 
 The marker MUST NOT cause a generic JEP Core verifier to claim TSTO
 semantics. Binding-aware processors must explicitly select Binding/02.
@@ -125,7 +134,9 @@ terminated. A logical event reference uses Event Identity:
 ```
 
 The optional `hash` pins an exact signed artifact. It is not the stable
-event identity.
+event identity. The JEP baseline representation is `sha256:` followed by
+64 lowercase hexadecimal characters. Reference objects contain exactly the
+members shown (`hash` remains optional).
 
 ## 6. Judgment (J)
 
@@ -155,6 +166,11 @@ A TSTO-bound D event MUST:
 - MAY carry `constraints`, `expiry`, `termination_conditions`, or
   domain-profile members.
 
+Core 0.7 leaves the representation and interpretation of `scope` and the
+optional domain members to the selected profile. Binding/02 does not import
+Binding/01's array-only constraints rule. Producers and consumers MUST agree
+on that profile; the structural harness does not evaluate its meaning.
+
 The actor in `who` is the declarant. Binding/02 does not prove that the
 actor had authority to delegate.
 
@@ -173,7 +189,16 @@ A TSTO-bound T event MUST:
   - `subject`, equal to the affected TSTO reference;
   - OPTIONAL `reason`.
 
-Binding/02 does not duplicate the target Event Identity inside `what`.
+Binding/02 does not duplicate the target Event Identity inside `what`;
+legacy `what.target` is forbidden. A consumer MUST resolve both target
+`who` and `id`, detect differing unsigned payloads for the same identity,
+and compare `ref.hash` to the exact full signed target when a pin is present.
+It MUST verify that the resolved target is bound to `what.subject` by
+`id + digest`. A missing target is unresolved, not a successful reference
+check; an identity, hash or subject mismatch fails the reference check.
+The selected domain profile determines eligible target roles and scope.
+Historical targets require an explicitly selected historical decoder;
+they MUST NOT be relabeled as Binding/02.
 
 A T event records a termination declaration. It does not delete history,
 retroactively invalidate the referenced event, or by itself determine a
@@ -202,7 +227,15 @@ one of:
 - `NOT_SATISFIED`;
 - `INDETERMINATE`.
 
-`INDETERMINATE` MUST NOT be collapsed into failure.
+`policy_ref` is the TSTO/00 immutable `id + digest` reference and MUST
+equal the bound TSTO's `verification.policy`. Each evidence entry MUST
+conform to TSTO/00 section 9. Schema validation cannot establish evidence
+availability, admissibility or truth.
+
+`INDETERMINATE` MUST NOT be collapsed into failure. The scoped result is
+a signed claim; a consumer's ability to validate that claim is a separate
+result. An unavailable required policy or evidence cannot become a
+successful policy check merely because the event is cryptographically valid.
 
 A V event records a scoped evaluation result. JEP validity does not itself
 establish that the result is factually correct.
@@ -228,6 +261,14 @@ A Binding/02 processor that performs JEP acceptance MUST preserve JEP Core
 0.7 idempotent-acceptance semantics: one Event Identity applies its
 acceptance effect at most once within one acceptance domain.
 
+The same identity and unsigned payload, including a newly signed artifact,
+returns `already_accepted` without applying the effect again. The same
+identity with different unsigned content is an identity conflict. Required
+Binding and profile checks MUST complete before committing the application
+acceptance effect; a rejected or unresolved reference must not consume it.
+The identity/state update and that effect require atomic coordination in
+the application. This Binding does not define a storage backend.
+
 A trust or interaction profile MAY additionally require nonce, challenge,
 sequence, trusted timestamp, transaction identifier, ledger position, or
 other freshness/single-use mechanisms.
@@ -247,9 +288,10 @@ A Binding/02 consumer MUST:
 6. validate the Binding/02 marker, `ref`, and `what` mapping;
 7. resolve the TSTO by `id + digest`;
 8. validate TSTO Core and the applicable TSTO Profile;
-9. for V, verify the selected Verification Policy and evidence needed for
-   the declared scope;
-10. return or retain the independent JEP and TSTO results without
+9. for T, resolve and check the target identity, optional hash and subject;
+10. for V, verify the selected Verification Policy and evidence needed for
+    the declared scope;
+11. return or retain the independent JEP and TSTO results without
     conflating them.
 
 A failed 0.7/Binding-02 validation MUST NOT trigger heuristic fallback to
@@ -290,6 +332,33 @@ Stable identifiers and digests may enable correlation.
 Binding/02 does not define task execution, workflow orchestration,
 marketplaces, pricing, payment settlement, legal authority, liability,
 remedies, arbitration, or automatic enforcement.
+
+## 16. Executable Interoperability Path
+
+Apply the [supplementary Binding Schema](../schemas/jep-tsto-binding-02.schema.json)
+**together with** the pinned Core 0.7 Schema. The supplement does not replace
+Core validation. URI and date-time formats must be enforced. Additional
+`what` members are profile-defined, except the forbidden legacy T target;
+unknown top-level event members remain subject to Core rules.
+
+The [repository harness](../scripts/check-binding-02.py) uses the unchanged
+Core 0.7 Python validator pinned in
+[`tests/upstream/jep-core-0.7.json`](../tests/upstream/jep-core-0.7.json).
+Its explicit signature profile is `JEP-Baseline-Ed25519-JWS-JCS-0.7`:
+RFC 8785 canonical unsigned payload, detached compact JWS, protected
+`alg=Ed25519` and `kid`, with synthetic actor/key binding. `EdDSA` is not an
+alias in this profile. No critical extension handler is installed; examples
+carry the Binding marker as a noncritical signed extension. A deployment
+using another signature/trust profile must select and implement it explicitly.
+
+The harness separately reports Core checks, Binding reference checks and
+TSTO integrity. Full TSTO Profile/Policy evaluation and external truth are
+`not_checked`, so passing it is **not** a full TSTO-consumer conformance claim.
+It uses a local test acceptance store to demonstrate Core idempotency, not
+production settlement, distributed storage or payment consumption.
+
+See the [README](../README.md) for the reproduction command and the
+[release notes](../releases/binding-02/RELEASE-NOTES.md) for migration and limits.
 
 ## References
 

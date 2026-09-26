@@ -1,6 +1,10 @@
 ## 2026-09-26 — JEP-TSTO Binding/02
 
-- Added Binding/02 for JEP Core 0.7.
+- Completed the first executable Binding/02 publication for JEP Core 0.7.
+- Unified the main-branch marker/carrier; superseded conflicting unpublished PRs #5 and #6.
+- Added the supplementary Schema, pinned upstream validator checks, signed/hostile fixtures, CI and immutable release bundle.
+- Made target identity/hash/subject checks, policy-reference equality and acceptance ordering explicit.
+- Reduced the README to current entry points, reproduction and the version matrix.
 - Semantic JEP event targets now use Event Identity `(who,id)`; Event Hash is optional exact-artifact pinning.
 - Removed any Binding-level assumption that Core requires nonce-based replay handling.
 - Aligned D/T/V with JEP Core 0.7 verb-specific `what` requirements.

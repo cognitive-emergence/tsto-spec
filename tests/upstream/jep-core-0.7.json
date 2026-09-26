@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/hjs-spec/jep-core",
+  "commit": "32e3321f887d52b5a50942d1eb7a42f618b2771d",
+  "files": {
+    "schemas/jep-event.schema.json": "9461055fcad5b17d53492c21f06164b411bd842cb76517738e89d68b503bcadc",
+    "reference-validator/jep_validate_07.py": "73421326305bb73ce00faa03f973e2c86c8625632804f548312b49c5eaf20887"
+  }
+}
