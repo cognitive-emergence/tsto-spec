@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanjudgment.org/ns/accepterms/2027",
+  "type": "object",
+  "properties": {
+    "terms": {
+      "type": "object",
+      "properties": {
+        "terms": {
+          "enum": [
+            "https://humanjudgment.org/ns/accepterms/2027#SA",
+            "https://humanjudgment.org/ns/accepterms/2027#BD",
+            "https://humanjudgment.org/ns/accepterms/2027#MV",
+            "https://humanjudgment.org/ns/accepterms/2027#TI",
+            "https://humanjudgment.org/ns/accepterms/2027#BE",
+            "https://humanjudgment.org/ns/accepterms/2027#BR"
+          ]
+        },
+        "judgmentWindow": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "defectNotificationPeriod": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "required": [
+        "terms",
+        "judgmentWindow",
+        "defectNotificationPeriod"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "terms"
+  ],
+  "additionalProperties": false
+}

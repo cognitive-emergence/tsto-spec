@@ -1,0 +1,14 @@
+{
+  "schema": "https://humanjudgment.org/ns/conformity-limitations/1.0",
+  "extension": "org.humanjudgment.limitations",
+  "limitations": [
+    { "code": "FINANCIAL_RELIANCE_NOT_ESTABLISHED", "meaning": "The issuer does not represent the record as a basis for payment, financing or other financial reliance." },
+    { "code": "INDEPENDENT_VERIFICATION_NOT_PERFORMED", "meaning": "No third party independently verified every agreed criterion; recorded judgments come from the parties." },
+    { "code": "LEGAL_LIABILITY_NOT_ASSERTED", "meaning": "The record does not determine legal liability, enforceability or contract consequences." },
+    { "code": "ORGANIZATION_AUTHORITY_NOT_INDEPENDENTLY_VERIFIED", "meaning": "At least one actor's organization or authority is declared or attested, not independently verified." },
+    { "code": "ORIGINAL_FILES_NOT_RETAINED_BY_ISSUER", "meaning": "The issuer retains file fingerprints, not the delivered originals; availability of originals is not asserted." },
+    { "code": "PAYMENT_NOT_VERIFIED", "meaning": "Payment, settlement or bank receipt is not verified by this record." },
+    { "code": "RECORDED_PARTY_STATEMENTS_ONLY", "meaning": "Recorded facts are statements made by the parties, not observations by the issuer." }
+  ],
+  "errors": ["INVALID_LIMITATIONS", "LIMITATIONS_CONCEALED"]
+}

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanjudgment.org/ns/canonical-json/1.0",
+  "description": "Any strictly parsed RFC 8785 JSON value. Duplicate keys and invalid Unicode must be rejected before JSON Schema evaluation."
+}

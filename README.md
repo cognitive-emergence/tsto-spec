@@ -11,6 +11,7 @@
 | Reproduce published Binding/02 | [Signed examples and hostile vectors](examples/binding-02/vectors.json) · [validation report](releases/binding-02/validation-report.json) |
 | Check current implementations | [Core 0.7 cross-repository gate](https://github.com/hjs-spec/jep-core/tree/main/integration#current-core-07--binding02) |
 | Publication and migration | [Binding/02 release notes](releases/binding-02/RELEASE-NOTES.md) |
+| Result conformity above TSTO and JEP | [Conformity 1.0 and Amendment 1](conformity/PUBLICATION.md) · [Record](conformity/conformity-record.md) · [reliance limitations](conformity/conformity-amendment-1.md) |
 
 ## Reproduce the published release
 

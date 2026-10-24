@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanjudgment.org/ns/conformity-summary/1.0",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "const": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://humanjudgment.org/ns/conformity-summary/1.0/context.jsonld"
+      ]
+    },
+    "schema": {
+      "const": "https://humanjudgment.org/ns/conformity-summary/1.0"
+    },
+    "type": {
+      "const": [
+        "VerifiableCredential",
+        "ConformitySummary"
+      ]
+    },
+    "issuer": {
+      "type": "string",
+      "maxLength": 4096,
+      "pattern": "^did:web:"
+    },
+    "validFrom": {
+      "type": "string",
+      "maxLength": 24,
+      "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+    },
+    "credentialSubject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 4096,
+          "pattern": "^[a-z][a-z0-9+.-]*:"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 16000
+        },
+        "criteria": {
+          "type": "array",
+          "items": {},
+          "maxItems": 1000
+        },
+        "facts": {},
+        "subject": {},
+        "introductionBasis": {
+          "const": "PARTY_DESCRIPTION"
+        },
+        "coverage": {
+          "const": "PUBLIC_SELECTED_RESULTS_NOT_COMPLETE_HISTORY"
+        },
+        "verification": {
+          "type": "object",
+          "properties": {
+            "confirmation": {
+              "const": "BUYER_CONFIRMATION"
+            },
+            "independentVerification": {
+              "const": "NOT_PERFORMED"
+            },
+            "originalResult": {
+              "const": "NOT_INCLUDED"
+            },
+            "companyAuthority": {
+              "const": "NOT_INDEPENDENTLY_VERIFIED"
+            },
+            "externalSignature": {
+              "const": "NOT_CHECKED"
+            },
+            "payment": {
+              "const": "NOT_CHECKED"
+            }
+          },
+          "required": [
+            "confirmation",
+            "independentVerification",
+            "originalResult",
+            "companyAuthority",
+            "externalSignature",
+            "payment"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "summary",
+        "criteria",
+        "facts",
+        "subject",
+        "introductionBasis",
+        "coverage",
+        "verification"
+      ],
+      "additionalProperties": false
+    },
+    "credentialStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 4096,
+          "pattern": "^[a-z][a-z0-9+.-]*:"
+        },
+        "type": {
+          "const": "ConformityStatus"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 4096,
+            "pattern": "^[a-z][a-z0-9+.-]*:"
+          },
+          "maxItems": 1000
+        },
+        "type": {
+          "const": "DataIntegrityProof"
+        },
+        "cryptosuite": {
+          "const": "eddsa-jcs-2022"
+        },
+        "created": {
+          "type": "string",
+          "maxLength": 24,
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+        },
+        "verificationMethod": {
+          "type": "string",
+          "maxLength": 4096,
+          "pattern": "^[a-z][a-z0-9+.-]*:"
+        },
+        "proofPurpose": {
+          "const": "assertionMethod"
+        },
+        "proofValue": {
+          "type": "string",
+          "maxLength": 100,
+          "pattern": "^z[1-9A-HJ-NP-Za-km-z]+$"
+        }
+      },
+      "required": [
+        "@context",
+        "type",
+        "cryptosuite",
+        "created",
+        "verificationMethod",
+        "proofPurpose",
+        "proofValue"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "schema",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject",
+    "credentialStatus",
+    "proof"
+  ],
+  "additionalProperties": false
+}

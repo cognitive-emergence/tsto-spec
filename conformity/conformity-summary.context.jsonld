@@ -1,0 +1,31 @@
+{
+  "@context": {
+    "@protected": true,
+    "ConformitySummary": "https://humanjudgment.org/ns/conformity-summary/1.0#ConformitySummary",
+    "ConformityStatus": "https://humanjudgment.org/ns/conformity-status/1.0#ConformityStatus",
+    "schema": {
+      "@id": "https://humanjudgment.org/ns/conformity-record/1.0#schema",
+      "@type": "@id"
+    },
+    "title": "https://schema.org/name",
+    "summary": "https://schema.org/description",
+    "criteria": {
+      "@id": "https://humanjudgment.org/ns/conformity-summary/1.0#criteria",
+      "@type": "@json"
+    },
+    "facts": {
+      "@id": "https://humanjudgment.org/ns/conformity-summary/1.0#facts",
+      "@type": "@json"
+    },
+    "subject": {
+      "@id": "https://humanjudgment.org/ns/conformity-summary/1.0#subject",
+      "@type": "@json"
+    },
+    "verification": {
+      "@id": "https://humanjudgment.org/ns/conformity-summary/1.0#verification",
+      "@type": "@json"
+    },
+    "introductionBasis": "https://humanjudgment.org/ns/conformity-summary/1.0#introductionBasis",
+    "coverage": "https://humanjudgment.org/ns/conformity-summary/1.0#coverage"
+  }
+}
