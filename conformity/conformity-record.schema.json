@@ -1,0 +1,882 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanjudgment.org/ns/conformity-record/1.0",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "https://humanjudgment.org/ns/conformity-record/1.0"
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "maxLength": 4096,
+          "pattern": "^[a-z][a-z0-9+.-]*:"
+        },
+        "resultId": {
+          "type": "string",
+          "maxLength": 4096,
+          "pattern": "^[a-z][a-z0-9+.-]*:"
+        }
+      },
+      "required": [
+        "issuer",
+        "resultId"
+      ],
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "string",
+      "maxLength": 4096,
+      "pattern": "^(?:[A-Z][A-Z0-9_]{0,127}|[a-z][a-z0-9+.-]*:.*)$"
+    },
+    "specification": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "$ref": "#/$defs/reference"
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/criterion"
+          },
+          "minItems": 1,
+          "maxItems": 1000
+        },
+        "parties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              },
+              "role": {
+                "enum": [
+                  "FIRST_PARTY",
+                  "SECOND_PARTY",
+                  "THIRD_PARTY"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "maxLength": 4096
+              },
+              "identifiers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "scheme": {
+                      "type": "string",
+                      "maxLength": 4096,
+                      "pattern": "^[a-z][a-z0-9+.-]*:"
+                    },
+                    "value": {
+                      "type": "string",
+                      "maxLength": 4096
+                    }
+                  },
+                  "required": [
+                    "scheme",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 1000
+              },
+              "extensions": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "critical": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 200,
+                  "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*){2,}$"
+                },
+                "uniqueItems": true,
+                "maxItems": 100
+              }
+            },
+            "required": [
+              "id",
+              "role",
+              "name",
+              "identifiers",
+              "extensions",
+              "critical"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 1000
+        },
+        "acceptanceTerms": {
+          "type": "object",
+          "properties": {
+            "terms": {
+              "enum": [
+                "https://humanjudgment.org/ns/accepterms/2027#SA",
+                "https://humanjudgment.org/ns/accepterms/2027#BD",
+                "https://humanjudgment.org/ns/accepterms/2027#MV",
+                "https://humanjudgment.org/ns/accepterms/2027#TI",
+                "https://humanjudgment.org/ns/accepterms/2027#BE",
+                "https://humanjudgment.org/ns/accepterms/2027#BR"
+              ]
+            },
+            "judgmentWindow": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "defectNotificationPeriod": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "terms",
+            "judgmentWindow",
+            "defectNotificationPeriod"
+          ],
+          "additionalProperties": false
+        },
+        "textLanguage": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "maxLength": 100
+            }
+          ]
+        },
+        "extensions": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "critical": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*){2,}$"
+          },
+          "uniqueItems": true,
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "reference",
+        "criteria",
+        "parties",
+        "acceptanceTerms",
+        "textLanguage",
+        "extensions",
+        "critical"
+      ],
+      "additionalProperties": false
+    },
+    "agreements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1
+          },
+          "specificationDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "party": {
+            "enum": [
+              "FIRST_PARTY",
+              "SECOND_PARTY"
+            ]
+          },
+          "actor": {
+            "$ref": "#/$defs/actor"
+          },
+          "recordedAt": {
+            "type": "string",
+            "maxLength": 24,
+            "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+          },
+          "eventDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "specificationDigest",
+          "party",
+          "actor",
+          "recordedAt",
+          "eventDigest"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 1000
+    },
+    "deliveries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/reference"
+          },
+          "specificationDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "previousDeliveryId": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              }
+            ]
+          },
+          "respondsToDecisionId": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              }
+            ]
+          },
+          "manifestDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "actor": {
+            "$ref": "#/$defs/actor"
+          },
+          "recordedAt": {
+            "type": "string",
+            "maxLength": 24,
+            "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+          },
+          "eventDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "extensions": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "critical": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 200,
+              "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*){2,}$"
+            },
+            "uniqueItems": true,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "reference",
+          "specificationDigest",
+          "previousDeliveryId",
+          "respondsToDecisionId",
+          "manifestDigest",
+          "actor",
+          "recordedAt",
+          "eventDigest",
+          "extensions",
+          "critical"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 1000
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "$ref": "#/$defs/reference"
+          },
+          "specificationDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "deliveryId": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1
+          },
+          "manifestDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "judgeParty": {
+            "enum": [
+              "FIRST_PARTY",
+              "SECOND_PARTY",
+              "THIRD_PARTY"
+            ]
+          },
+          "verb": {
+            "enum": [
+              "J",
+              "V"
+            ]
+          },
+          "actor": {
+            "$ref": "#/$defs/actor"
+          },
+          "recordedAt": {
+            "type": "string",
+            "maxLength": 24,
+            "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+          },
+          "eventDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "action": {
+            "enum": [
+              "ACCEPT",
+              "REQUEST_CHANGES",
+              "REQUEST_EVIDENCE",
+              "REJECT",
+              "EVALUATE"
+            ]
+          },
+          "criteria": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "criterionId": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "minLength": 1
+                },
+                "verdict": {
+                  "enum": [
+                    "MET",
+                    "NEEDS_CHANGES",
+                    "NOT_MET",
+                    "UNDETERMINED"
+                  ]
+                },
+                "outcome": {
+                  "enum": [
+                    "CONFORM",
+                    "NONCONFORM",
+                    "INDETERMINATE"
+                  ]
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 16000
+                }
+              },
+              "required": [
+                "criterionId",
+                "verdict",
+                "outcome",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 1000
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 16000
+          },
+          "extensions": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "critical": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 200,
+              "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*){2,}$"
+            },
+            "uniqueItems": true,
+            "maxItems": 100
+          },
+          "purpose": {
+            "enum": [
+              "ACCEPTANCE",
+              "EVALUATION"
+            ]
+          }
+        },
+        "required": [
+          "reference",
+          "specificationDigest",
+          "deliveryId",
+          "manifestDigest",
+          "judgeParty",
+          "verb",
+          "actor",
+          "recordedAt",
+          "eventDigest",
+          "action",
+          "criteria",
+          "note",
+          "extensions",
+          "critical"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 1000
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "objectId": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1
+          },
+          "recordedAt": {
+            "type": "string",
+            "maxLength": 24,
+            "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+          },
+          "previousDigest": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 71,
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              }
+            ]
+          },
+          "eventDigest": {
+            "type": "string",
+            "maxLength": 71,
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "objectId",
+          "recordedAt",
+          "previousDigest",
+          "eventDigest"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 1000
+    },
+    "current": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "deliveryId": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "maxLength": 256,
+              "minLength": 1
+            }
+          ]
+        },
+        "decisionId": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "maxLength": 256,
+              "minLength": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "state",
+        "deliveryId",
+        "decisionId"
+      ],
+      "additionalProperties": false
+    },
+    "issuance": {
+      "type": "object",
+      "properties": {
+        "issuedAt": {
+          "type": "string",
+          "maxLength": 24,
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+        }
+      },
+      "required": [
+        "issuedAt"
+      ],
+      "additionalProperties": false
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "critical": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 200,
+        "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*){2,}$"
+      },
+      "uniqueItems": true,
+      "maxItems": 100
+    },
+    "commitments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tsto",
+        "jepEvents",
+        "attachmentManifest"
+      ],
+      "properties": {
+        "tsto": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "mediaType",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "mediaType": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          }
+        },
+        "jepEvents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "mediaType",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              },
+              "mediaType": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              }
+            }
+          },
+          "maxItems": 10000
+        },
+        "attachmentManifest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "mediaType",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "mediaType": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "identity",
+    "profile",
+    "specification",
+    "agreements",
+    "deliveries",
+    "decisions",
+    "history",
+    "current",
+    "issuance",
+    "extensions",
+    "critical",
+    "commitments"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 256,
+          "minLength": 1
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "digest": {
+          "type": "string",
+          "maxLength": 71,
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "digest"
+      ],
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 256,
+          "minLength": 1
+        },
+        "partyId": {
+          "type": "string",
+          "maxLength": 256,
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scheme": {
+                "type": "string",
+                "maxLength": 4096,
+                "pattern": "^[a-z][a-z0-9+.-]*:"
+              },
+              "value": {
+                "type": "string",
+                "maxLength": 4096
+              }
+            },
+            "required": [
+              "scheme",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 1000
+        },
+        "delegation": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "minLength": 1
+                },
+                "principal": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "minLength": 1
+                },
+                "scope": {
+                  "enum": [
+                    "AGREE",
+                    "DELIVER",
+                    "JUDGE"
+                  ]
+                },
+                "validFrom": {
+                  "type": "string",
+                  "maxLength": 24,
+                  "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+                },
+                "validUntil": {
+                  "type": "string",
+                  "maxLength": 24,
+                  "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+                }
+              },
+              "required": [
+                "id",
+                "principal",
+                "scope",
+                "validFrom",
+                "validUntil"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "extensions": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "critical": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*){2,}$"
+          },
+          "uniqueItems": true,
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "id",
+        "partyId",
+        "name",
+        "identifiers",
+        "delegation",
+        "extensions",
+        "critical"
+      ],
+      "additionalProperties": false
+    },
+    "criterion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 256,
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "requirement": {
+          "type": "string",
+          "maxLength": 16000
+        },
+        "evidenceRequired": {
+          "type": "string",
+          "maxLength": 16000
+        },
+        "determinability": {
+          "enum": [
+            "MACHINE",
+            "MEASURED",
+            "HUMAN"
+          ]
+        },
+        "extensions": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "critical": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*){2,}$"
+          },
+          "uniqueItems": true,
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "requirement",
+        "evidenceRequired",
+        "determinability",
+        "extensions",
+        "critical"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

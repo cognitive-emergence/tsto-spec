@@ -1,3 +1,10 @@
+## 2026-10-24 — Conformity 1.0 and Amendment 1
+
+- Published the Conformity 1.0 specification set (Record, Package, Summary, Status, Verification Report, canonical JSON, issuer discovery, Accepterms 2027, reason catalog and test vectors) under `conformity/`, byte-identical to the reference implementation.
+- Added Amendment 1: issuer-declared reliance limitations in an always-visible, critical `org.humanjudgment.limitations` extension, with its closed code list and vectors. Earlier records verify unchanged.
+- Recommended that issuer-private extensions be noncritical so independent verifiers are not forced to reject records.
+- No change to TSTO/00, any Binding, published releases, signatures or harnesses.
+
 ## 2026-09-26 — Current implementation follow-up
 
 - Separate original Binding/02 release reproduction from current Core/SDK/API interoperability checks.

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanjudgment.org/ns/conformity-status/1.0",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "https://humanjudgment.org/ns/conformity-status/1.0"
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "maxLength": 4096,
+          "pattern": "^[a-z][a-z0-9+.-]*:"
+        },
+        "resultId": {
+          "type": "string",
+          "maxLength": 4096,
+          "pattern": "^[a-z][a-z0-9+.-]*:"
+        }
+      },
+      "required": [
+        "issuer",
+        "resultId"
+      ],
+      "additionalProperties": false
+    },
+    "state": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "headDigest": {
+      "type": "string",
+      "maxLength": 71,
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "observedAt": {
+      "type": "string",
+      "maxLength": 24,
+      "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+    },
+    "expiresAt": {
+      "type": "string",
+      "maxLength": 24,
+      "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d{3}Z$"
+    },
+    "signature": {
+      "type": "string",
+      "maxLength": 100000
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "critical": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 200,
+        "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*){2,}$"
+      },
+      "uniqueItems": true,
+      "maxItems": 100
+    }
+  },
+  "required": [
+    "schema",
+    "identity",
+    "state",
+    "headDigest",
+    "observedAt",
+    "expiresAt",
+    "signature",
+    "extensions",
+    "critical"
+  ],
+  "additionalProperties": false
+}
