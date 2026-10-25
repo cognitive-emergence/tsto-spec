@@ -41,3 +41,7 @@ Select the version explicitly. Wire `jep: "1"` does not distinguish these revisi
 Original 00/01 specifications, translations, PDFs, schemas and signed fixtures remain unchanged. The root `SHA256SUMS.txt` and `RELEASE_CHECKLIST.md` describe the original 00 publication, not today's repository index. Each later release has its own manifest under `releases/`. The Binding/02 manifest describes the immutable release archive, including the README, changelog and workflow as they appeared at publication. Those three repository entry points can evolve; CI continues to verify every other listed Binding/02 file against the original manifest.
 
 Use [Issues](https://github.com/cognitive-emergence/tsto-spec/issues) for interoperability findings and [private security advisories](https://github.com/cognitive-emergence/tsto-spec/security/advisories) for sensitive reports. [Contribution rules](CONTRIBUTING.md) · [CC BY 4.0](LICENSE.md) · [Citation](CITATION.cff).
+
+## Portable conformity records
+
+[Conformity specifications](conformity/README.md) define portable Package, Summary and Status artifacts. The [Record 1.1 limitations supplement](conformity/1.1/README.md) makes dependency boundaries explicit without changing TSTO/00, JEP Core or previously signed records. Normative publication currently lives in this repository; namespace hosting on humanjudgment.org is not required.
