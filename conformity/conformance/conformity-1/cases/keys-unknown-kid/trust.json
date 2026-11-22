@@ -1,0 +1,11 @@
+{
+ "issuers": {
+  "https://issuer.example": [
+   {
+    "id": "key-9",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAqpl/LdSJJWL/oyv7vpXHJjfkA8ZcwlTQrXr4ZrD50Oo=\n-----END PUBLIC KEY-----\n",
+    "status": "ACTIVE"
+   }
+  ]
+ }
+}

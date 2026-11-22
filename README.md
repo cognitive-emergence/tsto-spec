@@ -44,4 +44,4 @@ Use [Issues](https://github.com/cognitive-emergence/tsto-spec/issues) for intero
 
 ## Portable conformity records
 
-[Conformity specifications](conformity/README.md) define portable Package, Summary and Status artifacts. The [Record 1.1 limitations supplement](conformity/1.1/README.md) makes dependency boundaries explicit without changing TSTO/00, JEP Core or previously signed records. Normative publication currently lives in this repository; namespace hosting on humanjudgment.org is not required.
+[Conformity specifications](conformity/README.md) define portable Package, Summary and Status artifacts. The [Record 1.1 limitations supplement](conformity/1.1/README.md) makes dependency boundaries explicit without changing TSTO/00, JEP Core or previously signed records. [Conformity 1.2](conformity/1.2/README.md) adds delegated technical evaluations, the normative verification procedure and anchoring evidence; the [conformance suite](conformity/conformance/conformity-1/README.md) checks any verifier against signed vectors. Normative publication currently lives in this repository; namespace hosting on humanjudgment.org is not required.

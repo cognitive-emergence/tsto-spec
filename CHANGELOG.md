@@ -1,3 +1,9 @@
+## 2026-11-22 — Conformity 1.2 and the Conformity 1 conformance suite
+
+- Added `conformity/1.2/`: Record 1.2 (Record 1.1 plus delegation scope `VERIFY`), Verification 1.2 (Report 1.2, the normative verification procedure, reason catalog 1.2 registering `ACCEPTANCE_NOT_CONFORM`, `UNKNOWN_UNNAMESPACED_EVENT` and `JEP_ORIGIN_EVIDENCE_NOT_INCLUDED`) and package supplement 1.2 (anchoring evidence) with its evidence index schema.
+- Added `conformity/conformance/conformity-1/`: 95 signed vectors for Conformity 1.0, 1.1 and 1.2 with expected reports, and a standard-library Python runner for any verifier command.
+- No 1.0 or 1.1 file, TSTO/00 text, binding or earlier release artifact changed. Only the repository and conformity entry points (`README.md`, `conformity/README.md`, this changelog) were updated.
+
 ## 2026-09-26 — Current implementation follow-up
 
 - Separate original Binding/02 release reproduction from current Core/SDK/API interoperability checks.

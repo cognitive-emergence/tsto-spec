@@ -1,0 +1,47 @@
+{
+ "@context": [
+  "https://www.w3.org/ns/credentials/v2",
+  "https://humanjudgment.org/ns/conformity-summary/1.0/context.jsonld"
+ ],
+ "schema": "https://humanjudgment.org/ns/conformity-summary/1.0",
+ "type": [
+  "VerifiableCredential",
+  "ConformitySummary"
+ ],
+ "issuer": "did:web:issuer.example",
+ "validFrom": "2026-10-24T01:00:00.600Z",
+ "credentialSubject": {
+  "id": "urn:conformity:example:1",
+  "title": "Handover",
+  "summary": "Explicit second-party judgment",
+  "criteria": [],
+  "facts": {},
+  "subject": {},
+  "introductionBasis": "PARTY_DESCRIPTION",
+  "coverage": "PUBLIC_SELECTED_RESULTS_NOT_COMPLETE_HISTORY",
+  "verification": {
+   "confirmation": "BUYER_CONFIRMATION",
+   "independentVerification": "NOT_PERFORMED",
+   "originalResult": "NOT_INCLUDED",
+   "companyAuthority": "NOT_INDEPENDENTLY_VERIFIED",
+   "externalSignature": "NOT_CHECKED",
+   "payment": "NOT_CHECKED"
+  }
+ },
+ "credentialStatus": {
+  "id": "https://issuer.example/status/1",
+  "type": "ConformityStatus"
+ },
+ "proof": {
+  "@context": [
+   "https://www.w3.org/ns/credentials/v2",
+   "https://humanjudgment.org/ns/conformity-summary/1.0/context.jsonld"
+  ],
+  "type": "DataIntegrityProof",
+  "cryptosuite": "eddsa-jcs-2022",
+  "created": "2026-10-24T01:00:00.600Z",
+  "verificationMethod": "did:web:other.example#key-1",
+  "proofPurpose": "assertionMethod",
+  "proofValue": "z5awkkjKKNS2N2VrQ9yyizH8977Qg6A4SbN7cKmedb3S1n1pF7884ki87njLX2K2pS5T7SrEmebdnaXsZsXbwFgFD"
+ }
+}

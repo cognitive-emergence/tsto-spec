@@ -1,0 +1,8 @@
+{
+ "expectedStatus": {
+  "issuer": "https://issuer.example",
+  "resultId": "urn:conformity:example:1",
+  "headDigest": "sha256:3d3ef593664c43c1859e7dae63819285e0fb1796522ff94f4129b7ccbc6e08bf"
+ },
+ "checkedAt": "2026-10-24T01:05:00.600Z"
+}

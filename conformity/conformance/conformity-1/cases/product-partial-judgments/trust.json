@@ -1,0 +1,11 @@
+{
+ "issuers": {
+  "https://issuer.example": [
+   {
+    "id": "billing-test",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA/qniGavLAIQt9+DH2vNqMGiMxCto3iDqLignBDkeP9o=\n-----END PUBLIC KEY-----\n",
+    "status": "ACTIVE"
+   }
+  ]
+ }
+}
