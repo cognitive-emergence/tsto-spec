@@ -1,0 +1,14 @@
+{
+ "schema": "https://humanjudgment.org/ns/conformity-status/1.0",
+ "identity": {
+  "issuer": "https://issuer.example",
+  "resultId": "urn:conformity:example:1"
+ },
+ "state": "CONFORM",
+ "headDigest": "sha256:3d3ef593664c43c1859e7dae63819285e0fb1796522ff94f4129b7ccbc6e08bf",
+ "observedAt": "2026-10-24T01:00:00.600Z",
+ "expiresAt": "2026-10-24T01:05:00.601Z",
+ "extensions": {},
+ "critical": [],
+ "signature": "eyJhbGciOiJFZERTQSIsImtpZCI6ImtleS0xIiwidHlwIjoiY29uZm9ybWl0eS1zdGF0dXMrand0In0.eyJjcml0aWNhbCI6W10sImV4cGlyZXNBdCI6IjIwMjYtMTAtMjRUMDE6MDU6MDAuNjAxWiIsImV4dGVuc2lvbnMiOnt9LCJoZWFkRGlnZXN0Ijoic2hhMjU2OjNkM2VmNTkzNjY0YzQzYzE4NTllN2RhZTYzODE5Mjg1ZTBmYjE3OTY1MjJmZjk0ZjQxMjliN2NjYmM2ZTA4YmYiLCJpYXQiOjE3OTI4MDM2MDAuNiwiaWRlbnRpdHkiOnsiaXNzdWVyIjoiaHR0cHM6Ly9pc3N1ZXIuZXhhbXBsZSIsInJlc3VsdElkIjoidXJuOmNvbmZvcm1pdHk6ZXhhbXBsZToxIn0sImlzcyI6Imh0dHBzOi8vaXNzdWVyLmV4YW1wbGUiLCJvYnNlcnZlZEF0IjoiMjAyNi0xMC0yNFQwMTowMDowMC42MDBaIiwic2NoZW1hIjoiaHR0cHM6Ly9odW1hbmp1ZGdtZW50Lm9yZy9ucy9jb25mb3JtaXR5LXN0YXR1cy8xLjAiLCJzdGF0ZSI6IkNPTkZPUk0ifQ.4L_DqJytGg5RzRq90Tw-jGzo83BK_--aVu97Urg-MAhFRjSqGURTT1AlNssiH1U7n0mpcbW49GdP5gEaOwHvCA"
+}

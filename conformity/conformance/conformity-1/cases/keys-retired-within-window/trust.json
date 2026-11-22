@@ -1,0 +1,13 @@
+{
+ "issuers": {
+  "https://issuer.example": [
+   {
+    "id": "key-1",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAqpl/LdSJJWL/oyv7vpXHJjfkA8ZcwlTQrXr4ZrD50Oo=\n-----END PUBLIC KEY-----\n",
+    "status": "RETIRED",
+    "validFrom": "2026-01-01T00:00:00.000Z",
+    "validUntil": "2026-11-01T00:00:00.000Z"
+   }
+  ]
+ }
+}

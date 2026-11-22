@@ -1,0 +1,2412 @@
+{
+ "suite": "https://github.com/cognitive-emergence/tsto-spec/tree/main/conformity/conformance/conformity-1",
+ "version": "1.0.0",
+ "description": "Language-neutral conformance vectors for Conformity 1.0/1.1/1.2 records, partial presentations, packages, statuses and summaries. Generated from real issued artifacts by scripts/generate-conformity-conformance-suite.ts; keys are synthetic test keys.",
+ "comparison": {
+  "exact": [
+   "status",
+   "closure",
+   "disclosures",
+   "issuer",
+   "limitations",
+   "currentStatus",
+   "currentState",
+   "exitCode"
+  ],
+  "unordered": [
+   "reasons",
+   "ignoredFiles"
+  ],
+  "absent": "A member absent from expected must be absent from the report, except members the suite does not compare."
+ },
+ "profiles": {
+  "neutral": "expected: a verifier with no product-specific extension handlers or source policy.",
+  "prooftask": "profiles.prooftask overrides expected for the ProofTask reference verifier, which also replays ProofTask workflow events and names retired ProofTask formats."
+ },
+ "notCovered": [
+  "Anchoring evidence (evidence/, package standard 1.2): RFC 3161 tokens, OpenTimestamps and Bitcoin headers, and the REVOKED-key pre-exposure rule that depends on them.",
+  "Party-signature anchors and ProofTask participant keys."
+ ],
+ "cases": [
+  {
+   "id": "package-1.0-complete",
+   "description": "Conformity 1.0 package: both parties agreed, one delivery, explicit second-party ACCEPT; full disclosure.",
+   "tags": [
+    "package",
+    "record"
+   ],
+   "artifact": "cases/package-1.0-complete/artifact.json",
+   "trust": "cases/package-1.0-complete/trust.json",
+   "options": "cases/package-1.0-complete/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "ignoredFiles": [],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "package-1.1-complete-with-limitations",
+   "description": "Conformity 1.1 package with signed limitations; every limitation code is reported.",
+   "tags": [
+    "package",
+    "record",
+    "limitations"
+   ],
+   "artifact": "cases/package-1.1-complete-with-limitations/artifact.json",
+   "trust": "cases/package-1.1-complete-with-limitations/trust.json",
+   "options": "cases/package-1.1-complete-with-limitations/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "ignoredFiles": [],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "package-1.2-delegated-evaluation",
+   "description": "Conformity 1.2 package: a third-party technical evaluation (V, EVALUATE) by an actor delegated with scope VERIFY, then the explicit second-party ACCEPT.",
+   "tags": [
+    "package",
+    "record",
+    "limitations",
+    "revision-1.2"
+   ],
+   "artifact": "cases/package-1.2-delegated-evaluation/artifact.json",
+   "trust": "cases/package-1.2-delegated-evaluation/trust.json",
+   "options": "cases/package-1.2-delegated-evaluation/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 23,
+     "total": 23
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "ignoredFiles": [],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "package-1.0-changes-requested",
+   "description": "Valid record whose latest decision is REQUEST_CHANGES: verified, closure NOT_COMPLETE.",
+   "tags": [
+    "package",
+    "record",
+    "closure"
+   ],
+   "artifact": "cases/package-1.0-changes-requested/artifact.json",
+   "trust": "cases/package-1.0-changes-requested/trust.json",
+   "options": "cases/package-1.0-changes-requested/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "NOT_COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "ignoredFiles": [],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "package-1.0-unknown-namespaced-transition",
+   "description": "A namespaced (URI) history event after the decision: interpretation becomes INDETERMINATE, closure NOT_COMPLETE.",
+   "tags": [
+    "package",
+    "record",
+    "closure"
+   ],
+   "artifact": "cases/package-1.0-unknown-namespaced-transition/artifact.json",
+   "trust": "cases/package-1.0-unknown-namespaced-transition/trust.json",
+   "options": "cases/package-1.0-unknown-namespaced-transition/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "NOT_COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "UNKNOWN_NAMESPACED_TRANSITION"
+    ],
+    "issuer": "https://issuer.example",
+    "ignoredFiles": [],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "package-1.0-noncritical-unknown-extension",
+   "description": "An unknown noncritical extension is covered by the signature and ignored.",
+   "tags": [
+    "package",
+    "extensions"
+   ],
+   "artifact": "cases/package-1.0-noncritical-unknown-extension/artifact.json",
+   "trust": "cases/package-1.0-noncritical-unknown-extension/trust.json",
+   "options": "cases/package-1.0-noncritical-unknown-extension/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 18,
+     "total": 18
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "ignoredFiles": [],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "package-1.0-extra-file",
+   "description": "An extra file not reached from the signed commitments: UNCOMMITTED_FILE, listed in ignoredFiles, verdict unchanged.",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-1.0-extra-file/artifact.json",
+   "trust": "cases/package-1.0-extra-file/trust.json",
+   "options": "cases/package-1.0-extra-file/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "UNCOMMITTED_FILE"
+    ],
+    "issuer": "https://issuer.example",
+    "ignoredFiles": [
+     "extra.txt"
+    ],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "partial-1.0-one-judgment",
+   "description": "Partial presentation: the same issuer-signed JWT with one criterion judgment disclosed.",
+   "tags": [
+    "partial",
+    "sd-jwt"
+   ],
+   "artifact": "cases/partial-1.0-one-judgment/artifact.sd-jwt",
+   "trust": "cases/partial-1.0-one-judgment/trust.json",
+   "options": "cases/partial-1.0-one-judgment/options.json",
+   "expected": {
+    "status": "PARTIAL_DISCLOSURE",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 1,
+     "total": 17
+    },
+    "reasons": [
+     "PARTIAL_DISCLOSURE",
+     "JEP_ORIGIN_EVIDENCE_NOT_INCLUDED",
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "partial-1.0-nothing-disclosed",
+   "description": "Partial presentation with no disclosures: only always-visible claims.",
+   "tags": [
+    "partial",
+    "sd-jwt"
+   ],
+   "artifact": "cases/partial-1.0-nothing-disclosed/artifact.sd-jwt",
+   "trust": "cases/partial-1.0-nothing-disclosed/trust.json",
+   "options": "cases/partial-1.0-nothing-disclosed/options.json",
+   "expected": {
+    "status": "PARTIAL_DISCLOSURE",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 17
+    },
+    "reasons": [
+     "PARTIAL_DISCLOSURE",
+     "JEP_ORIGIN_EVIDENCE_NOT_INCLUDED",
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "partial-1.1-criteria-only",
+   "description": "Conformity 1.1 partial presentation disclosing the criteria; limitations stay visible and are reported.",
+   "tags": [
+    "partial",
+    "sd-jwt",
+    "limitations"
+   ],
+   "artifact": "cases/partial-1.1-criteria-only/artifact.sd-jwt",
+   "trust": "cases/partial-1.1-criteria-only/trust.json",
+   "options": "cases/partial-1.1-criteria-only/options.json",
+   "expected": {
+    "status": "PARTIAL_DISCLOSURE",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 2,
+     "total": 17
+    },
+    "reasons": [
+     "PARTIAL_DISCLOSURE",
+     "JEP_ORIGIN_EVIDENCE_NOT_INCLUDED",
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "partial-1.2-criteria-only",
+   "description": "Conformity 1.2 partial presentation disclosing the criteria; the delegated evaluation stays visible as signed structure.",
+   "tags": [
+    "partial",
+    "sd-jwt",
+    "limitations",
+    "revision-1.2"
+   ],
+   "artifact": "cases/partial-1.2-criteria-only/artifact.sd-jwt",
+   "trust": "cases/partial-1.2-criteria-only/trust.json",
+   "options": "cases/partial-1.2-criteria-only/options.json",
+   "expected": {
+    "status": "PARTIAL_DISCLOSURE",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 2,
+     "total": 23
+    },
+    "reasons": [
+     "PARTIAL_DISCLOSURE",
+     "JEP_ORIGIN_EVIDENCE_NOT_INCLUDED",
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "partial-1.0-all-disclosures",
+   "description": "Every disclosure but presented as a bare SD-JWT (no package): still a partial presentation, closure not established.",
+   "tags": [
+    "partial",
+    "sd-jwt"
+   ],
+   "artifact": "cases/partial-1.0-all-disclosures/artifact.sd-jwt",
+   "trust": "cases/partial-1.0-all-disclosures/trust.json",
+   "options": "cases/partial-1.0-all-disclosures/options.json",
+   "expected": {
+    "status": "PARTIAL_DISCLOSURE",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "PARTIAL_DISCLOSURE",
+     "JEP_ORIGIN_EVIDENCE_NOT_INCLUDED",
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "keys-retired-within-window",
+   "description": "Signing key RETIRED but the signature time lies inside [validFrom, validUntil): still valid.",
+   "tags": [
+    "keys"
+   ],
+   "artifact": "cases/keys-retired-within-window/artifact.json",
+   "trust": "cases/keys-retired-within-window/trust.json",
+   "options": "cases/keys-retired-within-window/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "ignoredFiles": [],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "keys-retired-at-validUntil",
+   "description": "Signing key validUntil equals the record issuedAt: the window is half-open, so the record signature is outside it.",
+   "tags": [
+    "keys",
+    "boundary"
+   ],
+   "artifact": "cases/keys-retired-at-validUntil/artifact.json",
+   "trust": "cases/keys-retired-at-validUntil/trust.json",
+   "options": "cases/keys-retired-at-validUntil/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ISSUER_KEY_NOT_VALID_AT_ISSUANCE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-active-validFrom-at-issuance",
+   "description": "Record key validFrom equals issuedAt (inclusive start), events signed by key-2: valid.",
+   "tags": [
+    "keys",
+    "boundary"
+   ],
+   "artifact": "cases/keys-active-validFrom-at-issuance/artifact.json",
+   "trust": "cases/keys-active-validFrom-at-issuance/trust.json",
+   "options": "cases/keys-active-validFrom-at-issuance/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "ignoredFiles": [],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "keys-event-before-key-validFrom",
+   "description": "JEP events are checked at their own recorded time: key validFrom after the first event makes the event signature untimely.",
+   "tags": [
+    "keys",
+    "origin",
+    "boundary"
+   ],
+   "artifact": "cases/keys-event-before-key-validFrom/artifact.json",
+   "trust": "cases/keys-event-before-key-validFrom/trust.json",
+   "options": "cases/keys-event-before-key-validFrom/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ISSUER_KEY_NOT_VALID_AT_ISSUANCE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-active-but-expired-window",
+   "description": "ACTIVE status does not override an explicit validUntil before issuance.",
+   "tags": [
+    "keys"
+   ],
+   "artifact": "cases/keys-active-but-expired-window/artifact.json",
+   "trust": "cases/keys-active-but-expired-window/trust.json",
+   "options": "cases/keys-active-but-expired-window/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ISSUER_KEY_NOT_VALID_AT_ISSUANCE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-revoked-1.0-record",
+   "description": "Conformity 1.0 record under a REVOKED key: INVALID (1.0 keeps the 1.0 report).",
+   "tags": [
+    "keys",
+    "revoked"
+   ],
+   "artifact": "cases/keys-revoked-1.0-record/artifact.json",
+   "trust": "cases/keys-revoked-1.0-record/trust.json",
+   "options": "cases/keys-revoked-1.0-record/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ISSUER_KEY_NOT_VALID_AT_ISSUANCE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-revoked-1.1-no-independent-time",
+   "description": "Conformity 1.1 record under a REVOKED key with validUntil and no anchoring evidence: INDETERMINATE.",
+   "tags": [
+    "keys",
+    "revoked"
+   ],
+   "artifact": "cases/keys-revoked-1.1-no-independent-time/artifact.json",
+   "trust": "cases/keys-revoked-1.1-no-independent-time/trust.json",
+   "options": "cases/keys-revoked-1.1-no-independent-time/options.json",
+   "expected": {
+    "status": "INDETERMINATE",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE",
+     "ISSUER_KEY_REVOKED_TIME_UNPROVEN"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "ignoredFiles": [],
+    "exitCode": 3
+   }
+  },
+  {
+   "id": "keys-revoked-1.1-no-validUntil",
+   "description": "REVOKED key that states no validUntil: INDETERMINATE with HISTORICAL_KEY_VALIDITY_UNKNOWN.",
+   "tags": [
+    "keys",
+    "revoked"
+   ],
+   "artifact": "cases/keys-revoked-1.1-no-validUntil/artifact.json",
+   "trust": "cases/keys-revoked-1.1-no-validUntil/trust.json",
+   "options": "cases/keys-revoked-1.1-no-validUntil/options.json",
+   "expected": {
+    "status": "INDETERMINATE",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE",
+     "ISSUER_KEY_REVOKED_TIME_UNPROVEN",
+     "HISTORICAL_KEY_VALIDITY_UNKNOWN"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "ignoredFiles": [],
+    "exitCode": 3
+   }
+  },
+  {
+   "id": "keys-revoked-1.1-partial",
+   "description": "A partial presentation carries no evidence, so under a REVOKED key it is always INDETERMINATE.",
+   "tags": [
+    "keys",
+    "revoked",
+    "partial"
+   ],
+   "artifact": "cases/keys-revoked-1.1-partial/artifact.sd-jwt",
+   "trust": "cases/keys-revoked-1.1-partial/trust.json",
+   "options": "cases/keys-revoked-1.1-partial/options.json",
+   "expected": {
+    "status": "INDETERMINATE",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 17
+    },
+    "reasons": [
+     "PARTIAL_DISCLOSURE",
+     "JEP_ORIGIN_EVIDENCE_NOT_INCLUDED",
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE",
+     "ISSUER_KEY_REVOKED_TIME_UNPROVEN"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "exitCode": 3
+   }
+  },
+  {
+   "id": "keys-revoked-1.1-event-key-only",
+   "description": "Only the key that signed the JEP events is REVOKED: the record is still INDETERMINATE.",
+   "tags": [
+    "keys",
+    "revoked",
+    "origin"
+   ],
+   "artifact": "cases/keys-revoked-1.1-event-key-only/artifact.json",
+   "trust": "cases/keys-revoked-1.1-event-key-only/trust.json",
+   "options": "cases/keys-revoked-1.1-event-key-only/options.json",
+   "expected": {
+    "status": "INDETERMINATE",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 17,
+     "total": 17
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE",
+     "ISSUER_KEY_REVOKED_TIME_UNPROVEN"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PAYMENT_NOT_CHECKED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "ignoredFiles": [],
+    "exitCode": 3
+   }
+  },
+  {
+   "id": "keys-revoked-1.0-event-key-only",
+   "description": "Conformity 1.0: JEP events under a REVOKED key make the record INVALID.",
+   "tags": [
+    "keys",
+    "revoked",
+    "origin"
+   ],
+   "artifact": "cases/keys-revoked-1.0-event-key-only/artifact.json",
+   "trust": "cases/keys-revoked-1.0-event-key-only/trust.json",
+   "options": "cases/keys-revoked-1.0-event-key-only/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ISSUER_KEY_NOT_VALID_AT_ISSUANCE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-untrusted-issuer",
+   "description": "The relying party trusts no key for this issuer.",
+   "tags": [
+    "keys"
+   ],
+   "artifact": "cases/keys-untrusted-issuer/artifact.json",
+   "trust": "cases/keys-untrusted-issuer/trust.json",
+   "options": "cases/keys-untrusted-issuer/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNTRUSTED_ISSUER_KEY"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-unknown-kid",
+   "description": "The trusted issuer has keys, but none with the JWT kid.",
+   "tags": [
+    "keys"
+   ],
+   "artifact": "cases/keys-unknown-kid/artifact.json",
+   "trust": "cases/keys-unknown-kid/trust.json",
+   "options": "cases/keys-unknown-kid/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNTRUSTED_ISSUER_KEY"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-duplicate-kid",
+   "description": "Two trusted keys share the kid: ambiguous, no key is selected.",
+   "tags": [
+    "keys"
+   ],
+   "artifact": "cases/keys-duplicate-kid/artifact.json",
+   "trust": "cases/keys-duplicate-kid/trust.json",
+   "options": "cases/keys-duplicate-kid/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNTRUSTED_ISSUER_KEY"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-wrong-public-key",
+   "description": "The trusted key-1 is a different Ed25519 key.",
+   "tags": [
+    "keys",
+    "signature"
+   ],
+   "artifact": "cases/keys-wrong-public-key/artifact.json",
+   "trust": "cases/keys-wrong-public-key/trust.json",
+   "options": "cases/keys-wrong-public-key/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_SIGNATURE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "keys-not-ed25519",
+   "description": "The trusted key-1 is a P-256 key.",
+   "tags": [
+    "keys"
+   ],
+   "artifact": "cases/keys-not-ed25519/artifact.json",
+   "trust": "cases/keys-not-ed25519/trust.json",
+   "options": "cases/keys-not-ed25519/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_KEY_TYPE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-tampered-disclosure-package",
+   "description": "A disclosure value changed (and the package file digest updated): the disclosure is no longer referenced.",
+   "tags": [
+    "sd-jwt",
+    "package"
+   ],
+   "artifact": "cases/sdjwt-tampered-disclosure-package/artifact.json",
+   "trust": "cases/sdjwt-tampered-disclosure-package/trust.json",
+   "options": "cases/sdjwt-tampered-disclosure-package/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNREFERENCED_DISCLOSURE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-tampered-disclosure-partial",
+   "description": "Partial presentation with a modified disclosure.",
+   "tags": [
+    "sd-jwt",
+    "partial"
+   ],
+   "artifact": "cases/sdjwt-tampered-disclosure-partial/artifact.sd-jwt",
+   "trust": "cases/sdjwt-tampered-disclosure-partial/trust.json",
+   "options": "cases/sdjwt-tampered-disclosure-partial/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNREFERENCED_DISCLOSURE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-duplicate-disclosure",
+   "description": "The same disclosure presented twice.",
+   "tags": [
+    "sd-jwt",
+    "partial"
+   ],
+   "artifact": "cases/sdjwt-duplicate-disclosure/artifact.sd-jwt",
+   "trust": "cases/sdjwt-duplicate-disclosure/trust.json",
+   "options": "cases/sdjwt-duplicate-disclosure/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "DUPLICATE_DISCLOSURE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-missing-disclosure-in-package",
+   "description": "A full package whose record.sd-jwt omits one disclosure.",
+   "tags": [
+    "sd-jwt",
+    "package"
+   ],
+   "artifact": "cases/sdjwt-missing-disclosure-in-package/artifact.json",
+   "trust": "cases/sdjwt-missing-disclosure-in-package/trust.json",
+   "options": "cases/sdjwt-missing-disclosure-in-package/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INCOMPLETE_DISCLOSURE_SET"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-payload-modified",
+   "description": "The JWT payload changed without a new signature.",
+   "tags": [
+    "sd-jwt",
+    "signature"
+   ],
+   "artifact": "cases/sdjwt-payload-modified/artifact.sd-jwt",
+   "trust": "cases/sdjwt-payload-modified/trust.json",
+   "options": "cases/sdjwt-payload-modified/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_SIGNATURE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-not-terminated",
+   "description": "A compact SD-JWT without the trailing tilde.",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-not-terminated/artifact.sd-jwt",
+   "trust": "cases/sdjwt-not-terminated/trust.json",
+   "options": "cases/sdjwt-not-terminated/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_SD_JWT"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-wrong-typ",
+   "description": "Issuer-signed JWT whose typ is not sd-jwt.",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-wrong-typ/artifact.sd-jwt",
+   "trust": "cases/sdjwt-wrong-typ/trust.json",
+   "options": "cases/sdjwt-wrong-typ/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_SD_JWT_TYPE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-extra-header-member",
+   "description": "Protected header with a member other than alg, kid and typ.",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-extra-header-member/artifact.sd-jwt",
+   "trust": "cases/sdjwt-extra-header-member/trust.json",
+   "options": "cases/sdjwt-extra-header-member/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_JWT_HEADER"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-alg-ed25519-name",
+   "description": "Conformity JWTs use alg EdDSA; the RFC 9864 name Ed25519 is not accepted here.",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-alg-ed25519-name/artifact.sd-jwt",
+   "trust": "cases/sdjwt-alg-ed25519-name/trust.json",
+   "options": "cases/sdjwt-alg-ed25519-name/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_JWT_HEADER"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-unsupported-sd-alg",
+   "description": "_sd_alg other than sha-256.",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-unsupported-sd-alg/artifact.sd-jwt",
+   "trust": "cases/sdjwt-unsupported-sd-alg/trust.json",
+   "options": "cases/sdjwt-unsupported-sd-alg/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_SD_ALGORITHM"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-disclosure-count-mismatch",
+   "description": "Signed disclosureCount differs from the number of commitments.",
+   "tags": [
+    "sd-jwt",
+    "envelope"
+   ],
+   "artifact": "cases/sdjwt-disclosure-count-mismatch/artifact.json",
+   "trust": "cases/sdjwt-disclosure-count-mismatch/trust.json",
+   "options": "cases/sdjwt-disclosure-count-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "RECORD_ENVELOPE_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-iat-not-issuedAt",
+   "description": "JWT iat differs from issuance.issuedAt.",
+   "tags": [
+    "sd-jwt",
+    "envelope"
+   ],
+   "artifact": "cases/sdjwt-iat-not-issuedAt/artifact.json",
+   "trust": "cases/sdjwt-iat-not-issuedAt/trust.json",
+   "options": "cases/sdjwt-iat-not-issuedAt/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "RECORD_ENVELOPE_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-iss-not-an-origin",
+   "description": "JWT iss that is not a URL at all: not an HTTPS issuer origin.",
+   "tags": [
+    "sd-jwt",
+    "issuer"
+   ],
+   "artifact": "cases/sdjwt-iss-not-an-origin/artifact.sd-jwt",
+   "trust": "cases/sdjwt-iss-not-an-origin/trust.json",
+   "options": "cases/sdjwt-iss-not-an-origin/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_ISSUER_ORIGIN"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-iss-not-identity-issuer",
+   "description": "JWT iss and identity.issuer differ.",
+   "tags": [
+    "sd-jwt",
+    "envelope"
+   ],
+   "artifact": "cases/sdjwt-iss-not-identity-issuer/artifact.json",
+   "trust": "cases/sdjwt-iss-not-identity-issuer/trust.json",
+   "options": "cases/sdjwt-iss-not-identity-issuer/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ISSUER_IDENTIFIER_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-nested-disclosure",
+   "description": "A disclosed value itself contains an _sd commitment (nested disclosures are forbidden).",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-nested-disclosure/artifact.sd-jwt",
+   "trust": "cases/sdjwt-nested-disclosure/trust.json",
+   "options": "cases/sdjwt-nested-disclosure/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "NESTED_DISCLOSURE_FORBIDDEN"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-short-salt",
+   "description": "A disclosure whose salt has fewer than 128 bits.",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-short-salt/artifact.sd-jwt",
+   "trust": "cases/sdjwt-short-salt/trust.json",
+   "options": "cases/sdjwt-short-salt/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_DISCLOSURE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-salt-not-base64url",
+   "description": "A disclosure whose salt is not base64url: an invalid disclosure, not a transport error.",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-salt-not-base64url/artifact.sd-jwt",
+   "trust": "cases/sdjwt-salt-not-base64url/trust.json",
+   "options": "cases/sdjwt-salt-not-base64url/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_DISCLOSURE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "sdjwt-digest-not-base64url",
+   "description": "An _sd entry that is not a base64url SHA-256 digest.",
+   "tags": [
+    "sd-jwt"
+   ],
+   "artifact": "cases/sdjwt-digest-not-base64url/artifact.sd-jwt",
+   "trust": "cases/sdjwt-digest-not-base64url/trust.json",
+   "options": "cases/sdjwt-digest-not-base64url/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_DISCLOSURE_DIGEST"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-unknown-critical-extension",
+   "description": "A critical extension the verifier has no handler for.",
+   "tags": [
+    "record",
+    "extensions"
+   ],
+   "artifact": "cases/record-unknown-critical-extension/artifact.json",
+   "trust": "cases/record-unknown-critical-extension/trust.json",
+   "options": "cases/record-unknown-critical-extension/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_CRITICAL_EXTENSION"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-unknown-critical-extension-partial",
+   "description": "An unknown critical extension inside a concealed criterion still fails a partial presentation (criticalManifest is visible).",
+   "tags": [
+    "record",
+    "extensions",
+    "partial"
+   ],
+   "artifact": "cases/record-unknown-critical-extension-partial/artifact.sd-jwt",
+   "trust": "cases/record-unknown-critical-extension-partial/trust.json",
+   "options": "cases/record-unknown-critical-extension-partial/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_CRITICAL_EXTENSION"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-reserved-party-signature",
+   "description": "The reserved org.humanjudgment.party-signature extension is not implemented and is rejected.",
+   "tags": [
+    "record",
+    "extensions"
+   ],
+   "artifact": "cases/record-reserved-party-signature/artifact.json",
+   "trust": "cases/record-reserved-party-signature/trust.json",
+   "options": "cases/record-reserved-party-signature/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PARTY_HELD_SIGNATURE_NOT_IMPLEMENTED"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-accept-with-unmet-criterion",
+   "description": "ACCEPT decision with a NOT_MET verdict: ACCEPTANCE_NOT_CONFORM (registered by the 1.2 catalog; earlier verifiers reported INVALID_CONFORMITY_INPUT).",
+   "tags": [
+    "record",
+    "closure",
+    "revision-1.2"
+   ],
+   "artifact": "cases/record-accept-with-unmet-criterion/artifact.json",
+   "trust": "cases/record-accept-with-unmet-criterion/trust.json",
+   "options": "cases/record-accept-with-unmet-criterion/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ACCEPTANCE_NOT_CONFORM"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-unnamespaced-history-kind",
+   "description": "A history kind that is neither registered nor a namespaced URI: UNKNOWN_UNNAMESPACED_EVENT (registered by the 1.2 catalog).",
+   "tags": [
+    "record",
+    "history",
+    "revision-1.2"
+   ],
+   "artifact": "cases/record-unnamespaced-history-kind/artifact.json",
+   "trust": "cases/record-unnamespaced-history-kind/trust.json",
+   "options": "cases/record-unnamespaced-history-kind/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNKNOWN_UNNAMESPACED_EVENT"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-1.1-verify-delegation",
+   "description": "The delegated evaluation of the 1.2 case declared as Record 1.1: the 1.1 schema has no VERIFY scope, so the record keeps its own version and is rejected.",
+   "tags": [
+    "record",
+    "revision-1.2"
+   ],
+   "artifact": "cases/record-1.1-verify-delegation/artifact.json",
+   "trust": "cases/record-1.1-verify-delegation/trust.json",
+   "options": "cases/record-1.1-verify-delegation/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_SCHEMA_SHAPE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-1.2-evaluation-under-judge-scope",
+   "description": "Record 1.2 technical evaluation whose actor is delegated with scope JUDGE: an evaluation needs scope VERIFY.",
+   "tags": [
+    "record",
+    "revision-1.2"
+   ],
+   "artifact": "cases/record-1.2-evaluation-under-judge-scope/artifact.json",
+   "trust": "cases/record-1.2-evaluation-under-judge-scope/trust.json",
+   "options": "cases/record-1.2-evaluation-under-judge-scope/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_DELEGATION"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-1.1-limitation-from-1.2-catalog",
+   "description": "A 1.1 record whose limitations name a code first registered by the 1.2 catalog: each record version uses its own catalog.",
+   "tags": [
+    "record",
+    "limitations",
+    "revision-1.2"
+   ],
+   "artifact": "cases/record-1.1-limitation-from-1.2-catalog/artifact.json",
+   "trust": "cases/record-1.1-limitation-from-1.2-catalog/trust.json",
+   "options": "cases/record-1.1-limitation-from-1.2-catalog/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_RECORD_LIMITATIONS"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-outcome-mismatch",
+   "description": "Verdict MET mapped to outcome NONCONFORM.",
+   "tags": [
+    "record"
+   ],
+   "artifact": "cases/record-outcome-mismatch/artifact.json",
+   "trust": "cases/record-outcome-mismatch/trust.json",
+   "options": "cases/record-outcome-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "CRITERION_OUTCOME_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-specification-digest-mismatch",
+   "description": "A criterion changed after the specification digest was computed.",
+   "tags": [
+    "record",
+    "digest"
+   ],
+   "artifact": "cases/record-specification-digest-mismatch/artifact.json",
+   "trust": "cases/record-specification-digest-mismatch/trust.json",
+   "options": "cases/record-specification-digest-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "SPECIFICATION_DIGEST_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-decision-digest-mismatch",
+   "description": "A decision note changed after the decision digest was computed.",
+   "tags": [
+    "record",
+    "digest"
+   ],
+   "artifact": "cases/record-decision-digest-mismatch/artifact.json",
+   "trust": "cases/record-decision-digest-mismatch/trust.json",
+   "options": "cases/record-decision-digest-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "DECISION_DIGEST_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-current-state-mismatch",
+   "description": "current.state does not equal the state the history produces.",
+   "tags": [
+    "record",
+    "closure"
+   ],
+   "artifact": "cases/record-current-state-mismatch/artifact.json",
+   "trust": "cases/record-current-state-mismatch/trust.json",
+   "options": "cases/record-current-state-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "CURRENT_STATE_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-history-chain-broken",
+   "description": "A history entry whose previousDigest does not name the previous event.",
+   "tags": [
+    "record",
+    "history"
+   ],
+   "artifact": "cases/record-history-chain-broken/artifact.json",
+   "trust": "cases/record-history-chain-broken/trust.json",
+   "options": "cases/record-history-chain-broken/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "HISTORY_CHAIN_INVALID"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-unknown-limitation",
+   "description": "A 1.1 limitation code that is not in the reason catalog.",
+   "tags": [
+    "record",
+    "limitations"
+   ],
+   "artifact": "cases/record-unknown-limitation/artifact.json",
+   "trust": "cases/record-unknown-limitation/trust.json",
+   "options": "cases/record-unknown-limitation/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_RECORD_LIMITATIONS"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-noncanonical-timestamp",
+   "description": "issuance.issuedAt without milliseconds (and iat to match): timestamps must be canonical UTC.",
+   "tags": [
+    "record",
+    "time"
+   ],
+   "artifact": "cases/record-noncanonical-timestamp/artifact.json",
+   "trust": "cases/record-noncanonical-timestamp/trust.json",
+   "options": "cases/record-noncanonical-timestamp/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_SCHEMA_SHAPE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "record-critical-manifest-mismatch",
+   "description": "The signed criticalManifest omits a critical extension present in the reconstructed record.",
+   "tags": [
+    "record",
+    "extensions"
+   ],
+   "artifact": "cases/record-critical-manifest-mismatch/artifact.json",
+   "trust": "cases/record-critical-manifest-mismatch/trust.json",
+   "options": "cases/record-critical-manifest-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "CRITICAL_MANIFEST_INVALID"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "package-replaced-jep-event",
+   "description": "A committed JEP event file replaced (digest updated in the carrier).",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-replaced-jep-event/artifact.json",
+   "trust": "cases/package-replaced-jep-event/trust.json",
+   "options": "cases/package-replaced-jep-event/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "package-missing-attachment",
+   "description": "A committed attachment is absent.",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-missing-attachment/artifact.json",
+   "trust": "cases/package-missing-attachment/trust.json",
+   "options": "cases/package-missing-attachment/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "package-media-type-changed",
+   "description": "A committed file presented with a different media type.",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-media-type-changed/artifact.json",
+   "trust": "cases/package-media-type-changed/trust.json",
+   "options": "cases/package-media-type-changed/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "package-data-not-matching-digest",
+   "description": "A carrier entry whose data does not match its own sha256.",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-data-not-matching-digest/artifact.json",
+   "trust": "cases/package-data-not-matching-digest/trust.json",
+   "options": "cases/package-data-not-matching-digest/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "package-duplicate-path",
+   "description": "Two carrier entries with the same path.",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-duplicate-path/artifact.json",
+   "trust": "cases/package-duplicate-path/trust.json",
+   "options": "cases/package-duplicate-path/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "package-unsafe-path",
+   "description": "A carrier path with a parent-directory segment.",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-unsafe-path/artifact.json",
+   "trust": "cases/package-unsafe-path/trust.json",
+   "options": "cases/package-unsafe-path/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "package-entry-without-data",
+   "description": "A committed carrier entry without its data member.",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-entry-without-data/artifact.json",
+   "trust": "cases/package-entry-without-data/trust.json",
+   "options": "cases/package-entry-without-data/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "package-extra-member",
+   "description": "A package object with a member other than schema and files.",
+   "tags": [
+    "package"
+   ],
+   "artifact": "cases/package-extra-member/artifact.json",
+   "trust": "cases/package-extra-member/trust.json",
+   "options": "cases/package-extra-member/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_PACKAGE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "partial-leaks-tsto",
+   "description": "A presentation object that carries TSTO content next to the SD-JWT.",
+   "tags": [
+    "partial",
+    "package"
+   ],
+   "artifact": "cases/partial-leaks-tsto/artifact.json",
+   "trust": "cases/partial-leaks-tsto/trust.json",
+   "options": "cases/partial-leaks-tsto/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PARTIAL_PRESENTATION_LEAKS_COMMITTED_CONTENT"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "origin-jep-signature-invalid",
+   "description": "JEP events signed by a key other than the trusted key-1 they name.",
+   "tags": [
+    "origin",
+    "signature"
+   ],
+   "artifact": "cases/origin-jep-signature-invalid/artifact.json",
+   "trust": "cases/origin-jep-signature-invalid/trust.json",
+   "options": "cases/origin-jep-signature-invalid/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "JEP_SIGNATURE_INVALID"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "origin-tsto-subject-mismatch",
+   "description": "TSTO subject is not the record result identifier.",
+   "tags": [
+    "origin"
+   ],
+   "artifact": "cases/origin-tsto-subject-mismatch/artifact.json",
+   "trust": "cases/origin-tsto-subject-mismatch/trust.json",
+   "options": "cases/origin-tsto-subject-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "TSTO_SUBJECT_BINDING_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "origin-tsto-target-mismatch",
+   "description": "TSTO target claims do not repeat the criteria.",
+   "tags": [
+    "origin"
+   ],
+   "artifact": "cases/origin-tsto-target-mismatch/artifact.json",
+   "trust": "cases/origin-tsto-target-mismatch/trust.json",
+   "options": "cases/origin-tsto-target-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "TSTO_TARGET_BINDING_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "origin-tsto-integrity-mismatch",
+   "description": "TSTO integrity value does not match its content.",
+   "tags": [
+    "origin"
+   ],
+   "artifact": "cases/origin-tsto-integrity-mismatch/artifact.json",
+   "trust": "cases/origin-tsto-integrity-mismatch/trust.json",
+   "options": "cases/origin-tsto-integrity-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "TSTO_SPECIFICATION_BINDING_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "origin-record-binding-digest-mismatch",
+   "description": "A JEP event binds a different object digest than the record object it covers.",
+   "tags": [
+    "origin"
+   ],
+   "artifact": "cases/origin-record-binding-digest-mismatch/artifact.json",
+   "trust": "cases/origin-record-binding-digest-mismatch/trust.json",
+   "options": "cases/origin-record-binding-digest-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "JEP_RECORD_BINDING_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "origin-judgment-kind-mismatch",
+   "description": "The decision event says reject while the record says ACCEPT.",
+   "tags": [
+    "origin"
+   ],
+   "artifact": "cases/origin-judgment-kind-mismatch/artifact.json",
+   "trust": "cases/origin-judgment-kind-mismatch/trust.json",
+   "options": "cases/origin-judgment-kind-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "JEP_JUDGMENT_KIND_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "origin-event-time-mismatch",
+   "description": "A JEP event `when` differs from the history recordedAt.",
+   "tags": [
+    "origin",
+    "time"
+   ],
+   "artifact": "cases/origin-event-time-mismatch/artifact.json",
+   "trust": "cases/origin-event-time-mismatch/trust.json",
+   "options": "cases/origin-event-time-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "JEP_ORIGIN_EVIDENCE_INVALID"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "status-fresh",
+   "description": "Status observed at checkedAt: FRESH, currentState CONFORM.",
+   "tags": [
+    "status"
+   ],
+   "artifact": "cases/status-fresh/artifact.json",
+   "trust": "cases/status-fresh/trust.json",
+   "options": "cases/status-fresh/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION"
+    ],
+    "issuer": "https://issuer.example",
+    "currentStatus": "FRESH",
+    "currentState": "CONFORM",
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "status-expired-at-expiresAt",
+   "description": "checkedAt equals expiresAt (half-open interval): STATUS_EXPIRED, current state unknown.",
+   "tags": [
+    "status",
+    "boundary"
+   ],
+   "artifact": "cases/status-expired-at-expiresAt/artifact.json",
+   "trust": "cases/status-expired-at-expiresAt/trust.json",
+   "options": "cases/status-expired-at-expiresAt/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "STATUS_EXPIRED"
+    ],
+    "issuer": "https://issuer.example",
+    "currentStatus": "UNKNOWN",
+    "currentState": null,
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "status-not-yet-valid",
+   "description": "checkedAt one millisecond before observedAt.",
+   "tags": [
+    "status",
+    "boundary"
+   ],
+   "artifact": "cases/status-not-yet-valid/artifact.json",
+   "trust": "cases/status-not-yet-valid/trust.json",
+   "options": "cases/status-not-yet-valid/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "STATUS_NOT_YET_VALID"
+    ],
+    "issuer": "https://issuer.example",
+    "currentStatus": "UNKNOWN",
+    "currentState": null,
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "status-other-head",
+   "description": "The verifier expects a different head digest.",
+   "tags": [
+    "status"
+   ],
+   "artifact": "cases/status-other-head/artifact.json",
+   "trust": "cases/status-other-head/trust.json",
+   "options": "cases/status-other-head/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "STATUS_RECORD_BINDING_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "status-presented-state-changed",
+   "description": "The presented state differs from the signed observation.",
+   "tags": [
+    "status",
+    "signature"
+   ],
+   "artifact": "cases/status-presented-state-changed/artifact.json",
+   "trust": "cases/status-presented-state-changed/trust.json",
+   "options": "cases/status-presented-state-changed/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "STATUS_SIGNATURE_BINDING_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "status-without-binding",
+   "description": "A Status checked without an expected head and clock.",
+   "tags": [
+    "status"
+   ],
+   "artifact": "cases/status-without-binding/artifact.json",
+   "trust": "cases/status-without-binding/trust.json",
+   "options": "cases/status-without-binding/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "STATUS_BINDING_AND_CLOCK_REQUIRED"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "status-validity-too-long",
+   "description": "A signed Status valid for more than 300 seconds.",
+   "tags": [
+    "status"
+   ],
+   "artifact": "cases/status-validity-too-long/artifact.json",
+   "trust": "cases/status-validity-too-long/trust.json",
+   "options": "cases/status-validity-too-long/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "STATUS_VALIDITY_INVALID"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "status-revoked-key",
+   "description": "A Status is a current statement: under a REVOKED key it is INVALID.",
+   "tags": [
+    "status",
+    "keys",
+    "revoked"
+   ],
+   "artifact": "cases/status-revoked-key/artifact.json",
+   "trust": "cases/status-revoked-key/trust.json",
+   "options": "cases/status-revoked-key/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ISSUER_KEY_NOT_VALID_AT_ISSUANCE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "summary-valid",
+   "description": "A Conformity Summary (VC 2.0, eddsa-jcs-2022).",
+   "tags": [
+    "summary"
+   ],
+   "artifact": "cases/summary-valid/artifact.json",
+   "trust": "cases/summary-valid/trust.json",
+   "options": "cases/summary-valid/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "PUBLIC_SUMMARY_NOT_FULL_RECORD"
+    ],
+    "issuer": "https://issuer.example",
+    "currentStatus": "NOT_CHECKED",
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "summary-modified-subject",
+   "description": "The summary title changed after signing.",
+   "tags": [
+    "summary",
+    "signature"
+   ],
+   "artifact": "cases/summary-modified-subject/artifact.json",
+   "trust": "cases/summary-modified-subject/trust.json",
+   "options": "cases/summary-modified-subject/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "INVALID_SIGNATURE"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "summary-issuer-did-mismatch",
+   "description": "The proof verificationMethod names another did:web.",
+   "tags": [
+    "summary",
+    "issuer"
+   ],
+   "artifact": "cases/summary-issuer-did-mismatch/artifact.json",
+   "trust": "cases/summary-issuer-did-mismatch/trust.json",
+   "options": "cases/summary-issuer-did-mismatch/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "ISSUER_IDENTIFIER_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "input-unsupported-artifact",
+   "description": "A JSON object that is no Conformity artifact.",
+   "tags": [
+    "input"
+   ],
+   "artifact": "cases/input-unsupported-artifact/artifact.json",
+   "trust": "cases/input-unsupported-artifact/trust.json",
+   "options": "cases/input-unsupported-artifact/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_CONFORMITY_ARTIFACT"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "input-retired-format",
+   "description": "A retired ProofTask format: a neutral verifier does not know it; the ProofTask profile names it RETIRED_FORMAT.",
+   "tags": [
+    "input",
+    "profile"
+   ],
+   "artifact": "cases/input-retired-format/artifact.json",
+   "trust": "cases/input-retired-format/trust.json",
+   "options": "cases/input-retired-format/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "UNSUPPORTED_CONFORMITY_ARTIFACT"
+    ],
+    "exitCode": 1
+   },
+   "profiles": {
+    "prooftask": {
+     "status": "INVALID",
+     "closure": "NOT_ESTABLISHED",
+     "disclosures": {
+      "disclosed": 0,
+      "total": 0
+     },
+     "reasons": [
+      "RETIRED_FORMAT"
+     ],
+     "exitCode": 1
+    }
+   }
+  },
+  {
+   "id": "input-duplicate-member",
+   "description": "A package whose JSON repeats a member name (escaped spelling): strict parsing rejects it.",
+   "tags": [
+    "input",
+    "json"
+   ],
+   "artifact": "cases/input-duplicate-member/artifact.json",
+   "trust": "cases/input-duplicate-member/trust.json",
+   "options": "cases/input-duplicate-member/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "DUPLICATE_KEY"
+    ],
+    "exitCode": 1
+   }
+  },
+  {
+   "id": "product-record-corrected-and-confirmed",
+   "description": "A record issued by the ProofTask runtime: request changes, corrected delivery, buyer confirmation. A neutral reader reports the product workflow events as JEP_AUXILIARY_NOT_INTERPRETED; the ProofTask profile replays them.",
+   "tags": [
+    "product",
+    "package"
+   ],
+   "artifact": "cases/product-record-corrected-and-confirmed/artifact.json",
+   "trust": "cases/product-record-corrected-and-confirmed/trust.json",
+   "options": "cases/product-record-corrected-and-confirmed/options.json",
+   "expected": {
+    "status": "VERIFIED_WITH_LIMITATIONS",
+    "closure": "COMPLETE",
+    "disclosures": {
+     "disclosed": 37,
+     "total": 37
+    },
+    "reasons": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "ORIGINAL_FILES_NOT_CHECKED",
+     "EXTERNAL_PROOFS_NOT_CHECKED",
+     "PAYMENT_NOT_CHECKED",
+     "ORGANIZATION_AUTHORITY_NOT_INDEPENDENTLY_VERIFIED",
+     "CURRENT_STATUS_UNKNOWN",
+     "SYSTEM_VERIFICATION_NOT_PERFORMED",
+     "PAYMENT_EXECUTION_NOT_PERFORMED",
+     "NOT_FINANCIAL_EVIDENCE",
+     "JEP_AUXILIARY_NOT_INTERPRETED"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "ORIGINAL_FILES_NOT_CHECKED",
+     "EXTERNAL_PROOFS_NOT_CHECKED",
+     "PAYMENT_NOT_CHECKED",
+     "ORGANIZATION_AUTHORITY_NOT_INDEPENDENTLY_VERIFIED",
+     "CURRENT_STATUS_UNKNOWN",
+     "SYSTEM_VERIFICATION_NOT_PERFORMED",
+     "PAYMENT_EXECUTION_NOT_PERFORMED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "ignoredFiles": [],
+    "exitCode": 0
+   },
+   "profiles": {
+    "prooftask": {
+     "status": "VERIFIED_WITH_LIMITATIONS",
+     "closure": "COMPLETE",
+     "disclosures": {
+      "disclosed": 37,
+      "total": 37
+     },
+     "reasons": [
+      "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+      "ORIGINAL_FILES_NOT_CHECKED",
+      "EXTERNAL_PROOFS_NOT_CHECKED",
+      "PAYMENT_NOT_CHECKED",
+      "ORGANIZATION_AUTHORITY_NOT_INDEPENDENTLY_VERIFIED",
+      "CURRENT_STATUS_UNKNOWN",
+      "SYSTEM_VERIFICATION_NOT_PERFORMED",
+      "PAYMENT_EXECUTION_NOT_PERFORMED",
+      "NOT_FINANCIAL_EVIDENCE"
+     ],
+     "issuer": "https://issuer.example",
+     "limitations": [
+      "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+      "ORIGINAL_FILES_NOT_CHECKED",
+      "EXTERNAL_PROOFS_NOT_CHECKED",
+      "PAYMENT_NOT_CHECKED",
+      "ORGANIZATION_AUTHORITY_NOT_INDEPENDENTLY_VERIFIED",
+      "CURRENT_STATUS_UNKNOWN",
+      "SYSTEM_VERIFICATION_NOT_PERFORMED",
+      "PAYMENT_EXECUTION_NOT_PERFORMED",
+      "NOT_FINANCIAL_EVIDENCE"
+     ],
+     "ignoredFiles": [],
+     "exitCode": 0
+    }
+   }
+  },
+  {
+   "id": "product-partial-judgments",
+   "description": "Partial presentation of the product record disclosing only the criterion judgments.",
+   "tags": [
+    "product",
+    "partial"
+   ],
+   "artifact": "cases/product-partial-judgments/artifact.sd-jwt",
+   "trust": "cases/product-partial-judgments/trust.json",
+   "options": "cases/product-partial-judgments/options.json",
+   "expected": {
+    "status": "PARTIAL_DISCLOSURE",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 2,
+     "total": 37
+    },
+    "reasons": [
+     "PARTIAL_DISCLOSURE",
+     "JEP_ORIGIN_EVIDENCE_NOT_INCLUDED",
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "ORIGINAL_FILES_NOT_CHECKED",
+     "EXTERNAL_PROOFS_NOT_CHECKED",
+     "PAYMENT_NOT_CHECKED",
+     "ORGANIZATION_AUTHORITY_NOT_INDEPENDENTLY_VERIFIED",
+     "CURRENT_STATUS_UNKNOWN",
+     "SYSTEM_VERIFICATION_NOT_PERFORMED",
+     "PAYMENT_EXECUTION_NOT_PERFORMED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "issuer": "https://issuer.example",
+    "limitations": [
+     "ACTOR_ATTRIBUTION_RECORDER_ASSERTION",
+     "ORIGINAL_FILES_NOT_CHECKED",
+     "EXTERNAL_PROOFS_NOT_CHECKED",
+     "PAYMENT_NOT_CHECKED",
+     "ORGANIZATION_AUTHORITY_NOT_INDEPENDENTLY_VERIFIED",
+     "CURRENT_STATUS_UNKNOWN",
+     "SYSTEM_VERIFICATION_NOT_PERFORMED",
+     "PAYMENT_EXECUTION_NOT_PERFORMED",
+     "NOT_FINANCIAL_EVIDENCE"
+    ],
+    "exitCode": 0
+   }
+  },
+  {
+   "id": "product-record-tampered-event",
+   "description": "Product record with one committed workflow event rewritten (carrier digest updated).",
+   "tags": [
+    "product",
+    "package"
+   ],
+   "artifact": "cases/product-record-tampered-event/artifact.json",
+   "trust": "cases/product-record-tampered-event/trust.json",
+   "options": "cases/product-record-tampered-event/options.json",
+   "expected": {
+    "status": "INVALID",
+    "closure": "NOT_ESTABLISHED",
+    "disclosures": {
+     "disclosed": 0,
+     "total": 0
+    },
+    "reasons": [
+     "PACKAGE_CONTENT_MISMATCH"
+    ],
+    "exitCode": 1
+   }
+  }
+ ]
+}

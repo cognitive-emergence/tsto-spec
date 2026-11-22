@@ -1,0 +1,17 @@
+{
+ "issuers": {
+  "https://issuer.example": [
+   {
+    "id": "key-1",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAqpl/LdSJJWL/oyv7vpXHJjfkA8ZcwlTQrXr4ZrD50Oo=\n-----END PUBLIC KEY-----\n",
+    "status": "ACTIVE",
+    "validFrom": "2026-10-24T01:00:00.000Z"
+   },
+   {
+    "id": "key-2",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAyMDUMDQttSard09S3PRA+JdOnzsFaUIc7gzhPlE7bFQ=\n-----END PUBLIC KEY-----\n",
+    "status": "ACTIVE"
+   }
+  ]
+ }
+}
