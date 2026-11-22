@@ -14,6 +14,13 @@ under its own version).
 - `run.py`: runs any verifier command against the suite (Python 3.9 or later, standard library only).
 - `SHA256SUMS.txt`: the digest of every file in this directory as published.
 
+Suite identifier (the `suite` member of `suite.json`):
+`https://github.com/cognitive-emergence/tsto-spec/tree/main/conformity/conformance/conformity-1`.
+
+Licensing: code files here (`run.py`) are licensed under the Apache License 2.0 (SPDX `Apache-2.0`, stated in each
+file). The vectors, `suite.json` and this text are covered by the repository licence, CC BY 4.0, like the
+specification texts.
+
 ## Run it
 
 Your verifier is a command that takes three file paths, `ARTIFACT TRUST OPTIONS.json`, prints one JSON verification

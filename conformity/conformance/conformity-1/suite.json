@@ -1,5 +1,5 @@
 {
- "suite": "https://prooftask.com/conformance/conformity-1",
+ "suite": "https://github.com/cognitive-emergence/tsto-spec/tree/main/conformity/conformance/conformity-1",
  "version": "1.0.0",
  "description": "Language-neutral conformance vectors for Conformity 1.0/1.1/1.2 records, partial presentations, packages, statuses and summaries. Generated from real issued artifacts by scripts/generate-conformity-conformance-suite.ts; keys are synthetic test keys.",
  "comparison": {

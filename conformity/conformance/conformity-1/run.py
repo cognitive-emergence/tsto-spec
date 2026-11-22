@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Conformity 1 conformance suite runner, licensed under the Apache License, Version 2.0:
+# https://www.apache.org/licenses/LICENSE-2.0
 """Run any Conformity verifier command against this suite (Python 3.9+, standard library only).
 
     python3 run.py [--profile neutral|prooftask] [--only ID[,ID...]] [--json] -- COMMAND [ARG...]

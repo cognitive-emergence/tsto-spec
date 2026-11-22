@@ -3,7 +3,7 @@
   "https://issuer.example": [
    {
     "id": "key-1",
-    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEF1bsL2dhKWQ1A4sCr1PRRQkVUy5C\neeFST4PJjULzdZIYLv2n/52ao5IYnvxeQtgxm+7WpMbkTGfXmIIlpk35RQ==\n-----END PUBLIC KEY-----\n",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEV0dHf+A2MMxEEynZzXX5rS/988IF\n4ilvjt1/MgM4W42b+6v6x1pqW4+Dml4KKGArd3f0d12yeQunUY5fVmEm8Q==\n-----END PUBLIC KEY-----\n",
     "status": "ACTIVE"
    }
   ]
